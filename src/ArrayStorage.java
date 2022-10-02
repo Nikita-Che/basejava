@@ -1,6 +1,3 @@
-import java.util.Arrays;
-import java.util.Collection;
-
 /**
  * Array based storage for Resumes
  */
@@ -8,28 +5,70 @@ public class ArrayStorage {
     Resume[] storage = new Resume[10000];
 
     void clear() {
-    }
+        for (int i = 0; i < storage.length; i++) {
+            storage[i] = null;
+        }
+    }   //done
 
     void save(Resume r) {
-        storage[0] = r;
-    }
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i] == null) {
+                storage[i] = r;
+                break;
+            }
+        }
+    }   //done
 
     Resume get(String uuid) {
-        return storage[0];
-    }
+
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                return storage[i];
+            }
+            break;
+        }
+        return new Resume();
+    } //done
 
     void delete(String uuid) {
-        storage[0] = null;
-    }
+
+        for (int i = 0; i < storage.length; i++) {   //deleting element
+            if (storage[i].uuid.equalsIgnoreCase(uuid)) {
+                storage[i] = null;
+                break;
+            }
+        }
+
+        for (int i = 0; i < storage.length - 1; i++) {   //right shift elements
+            if (storage[i] == null) {
+                storage[i] = storage[i + 1];
+                storage[i + 1] = null;
+            }
+        }
+    }    //done
 
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return new Resume[0];
-    }
+        int index = 0;
+
+        for (int i = 0; i < storage.length; i++) {
+            if (storage[i] == null) {
+                index = i;
+                break;
+            }
+        }  //finding index
+
+        Resume[] resumes = new Resume[index];
+        for (int i = 0; i < resumes.length; i++) {
+            resumes[i] = storage[i];
+        }
+
+        return resumes;
+    }  //done
 
     int size() {
         return storage.length;
-    }
+    }  //done
 }
