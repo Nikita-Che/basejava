@@ -18,7 +18,6 @@ public class ArrayStorage {
         } else {
             storage[size] = r;
         }
-
         size++;
     }
 
@@ -45,7 +44,6 @@ public class ArrayStorage {
         for (int i = deletedElementIndex; i < size; i++) {
             storage[i] = storage[i + 1];
         }
-
         size--;
     }
 
