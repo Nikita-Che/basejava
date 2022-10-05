@@ -6,28 +6,27 @@ public class ArrayStorage {
     private int size = 0;
 
     void clear() {
-        for (int i = 0; i < storage.length; i++) {
+        for (int i = 0; i < size; i++) {
             storage[i] = null;
         }
         size = 0;
     }
 
     void save(Resume r) {
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                storage[i] = r;
-                break;
-            }
+        if (size == 0) {
+            storage[0] = r;
+        } else {
+            storage[size] = r;
         }
+
         size++;
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < storage.length; i++) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
             }
-            break;
         }
         return null;
     }
@@ -35,7 +34,7 @@ public class ArrayStorage {
     void delete(String uuid) {
         int deletedElementIndex = 0;
         //deleting element
-        for (int i = 0; i < storage.length; i++) {
+        for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equalsIgnoreCase(uuid)) {
                 storage[i] = null;
                 deletedElementIndex = i;
@@ -43,20 +42,10 @@ public class ArrayStorage {
             }
         }
         //right shift elements
-        for (int i = deletedElementIndex; i < storage.length - 1; i++) {
-            if (storage[i] == null && storage[i + 1] == null) {
-                break;
-            } else {
-                storage[i] = storage[i + 1];
-            }
+        for (int i = deletedElementIndex; i < size; i++) {
+            storage[i] = storage[i + 1];
         }
-        //right shift elements old and modified!
-//        for (int i = 0; i < storage.length - 1; i++) {
-//            if (storage[i] == null && storage[i + 1] != null) {
-//                storage[i] = storage[i + 1];
-//                storage[i + 1] = null;
-//            }
-//        }
+
         size--;
     }
 
@@ -64,16 +53,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        int index = 0;
-
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                index = i;
-                break;
-            }
-        }  //finding index
-
-        Resume[] resumes = new Resume[index];
+        Resume[] resumes = new Resume[size];
         for (int i = 0; i < resumes.length; i++) {
             resumes[i] = storage[i];
         }
