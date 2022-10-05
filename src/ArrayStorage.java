@@ -13,11 +13,7 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        if (size == 0) {
-            storage[0] = r;
-        } else {
-            storage[size] = r;
-        }
+        storage[size] = r;
         size++;
     }
 
@@ -31,20 +27,24 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int deletedElementIndex = 0;
         //deleting element
+        int deletedElementIndex = 0;
+        boolean isDeleted = false;
         for (int i = 0; i < size; i++) {
             if (storage[i].uuid.equalsIgnoreCase(uuid)) {
                 storage[i] = null;
                 deletedElementIndex = i;
+                isDeleted = true;
+                size--;
                 break;
             }
         }
         //right shift elements
         for (int i = deletedElementIndex; i < size; i++) {
-            storage[i] = storage[i + 1];
+            if (isDeleted) {
+                storage[i] = storage[i + 1];
+            }
         }
-        size--;
     }
 
     /**
