@@ -3,11 +3,13 @@
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    private int size = 0;
 
     void clear() {
         for (int i = 0; i < storage.length; i++) {
             storage[i] = null;
         }
+        size = 0;
     }
 
     void save(Resume r) {
@@ -17,6 +19,7 @@ public class ArrayStorage {
                 break;
             }
         }
+        size++;
     }
 
     Resume get(String uuid) {
@@ -54,6 +57,7 @@ public class ArrayStorage {
 //                storage[i + 1] = null;
 //            }
 //        }
+        size--;
     }
 
     /**
@@ -73,18 +77,10 @@ public class ArrayStorage {
         for (int i = 0; i < resumes.length; i++) {
             resumes[i] = storage[i];
         }
-
         return resumes;
     }
 
     int size() {
-        int resumeCount = 0;
-
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] != null) {
-                resumeCount++;
-            }
-        }
-        return resumeCount;
+        return size;
     }
 }
