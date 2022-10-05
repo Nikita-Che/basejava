@@ -30,19 +30,30 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < storage.length; i++) {   //deleting element
+        int deletedElementIndex = 0;
+        //deleting element
+        for (int i = 0; i < storage.length; i++) {
             if (storage[i].uuid.equalsIgnoreCase(uuid)) {
                 storage[i] = null;
+                deletedElementIndex = i;
                 break;
             }
         }
-
-        for (int i = 0; i < storage.length - 1; i++) {   //right shift elements
-            if (storage[i] == null) {
+        //right shift elements
+        for (int i = deletedElementIndex; i < storage.length - 1; i++) {
+            if (storage[i] == null && storage[i + 1] == null) {
+                break;
+            } else {
                 storage[i] = storage[i + 1];
-                storage[i + 1] = null;
             }
         }
+        //right shift elements old and modified!
+//        for (int i = 0; i < storage.length - 1; i++) {
+//            if (storage[i] == null && storage[i + 1] != null) {
+//                storage[i] = storage[i + 1];
+//                storage[i + 1] = null;
+//            }
+//        }
     }
 
     /**
@@ -68,6 +79,7 @@ public class ArrayStorage {
 
     int size() {
         int resumeCount = 0;
+
         for (int i = 0; i < storage.length; i++) {
             if (storage[i] != null) {
                 resumeCount++;
