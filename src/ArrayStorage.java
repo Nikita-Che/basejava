@@ -26,7 +26,7 @@ public class ArrayStorage {
             }
             break;
         }
-        return new Resume();
+        return null;
     }
 
     void delete(String uuid) {
