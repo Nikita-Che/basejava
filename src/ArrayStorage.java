@@ -52,9 +52,7 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
         Resume[] resumes = new Resume[size];
-        for (int i = 0; i < resumes.length; i++) {
-            resumes[i] = storage[i];
-        }
+        System.arraycopy(storage, 0, resumes, 0, resumes.length);
         return resumes;
     }
 
