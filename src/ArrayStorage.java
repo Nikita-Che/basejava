@@ -27,25 +27,33 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        //deleting element
-        int deletedElementIndex = 0;
-        boolean isDeleted = false;
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equalsIgnoreCase(uuid)) {
-                storage[i] = null;
-                deletedElementIndex = i;
-                isDeleted = true;
+            if (storage[i].uuid.equals(uuid)) {
+                storage[i] = storage[size - 1];
+                storage[size - 1] = null;
                 size--;
-                break;
-            }
-        }
-        //right shift elements
-        for (int i = deletedElementIndex; i < size; i++) {
-            if (isDeleted) {
-                storage[i] = storage[i + 1];
             }
         }
     }
+
+//        //deleting element
+//        int deletedElementIndex = 0;
+//        boolean isDeleted = false;
+//        for (int i = 0; i < size; i++) {
+//            if (storage[i].uuid.equalsIgnoreCase(uuid)) {
+//                storage[i] = null;
+//                deletedElementIndex = i;
+//                isDeleted = true;
+//                size--;
+//                break;
+//            }
+//        }
+//        //right shift elements
+//        for (int i = deletedElementIndex; i < size; i++) {
+//            if (isDeleted) {
+//                storage[i] = storage[i + 1];
+//            }
+//        }
 
     /**
      * @return array, contains only Resumes in storage (without null)
