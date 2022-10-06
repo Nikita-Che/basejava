@@ -12,22 +12,23 @@ public class ArrayStorage {
     private int size = 0;
 
     public void clear() {
-        Arrays.fill(storage,null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     public void save(Resume r) {
         //TODO check if resume NOT Present sout(uuid)
+        //TODO check oversize
         storage[size] = r;
         size++;
     }
 
     public void upDate(Resume r, String newUuid) {
         //TODO check if resume  Present  sout(uuid)
-
     }
 
     public Resume get(String uuid) {
+        //TODO check if resume Present  sout(uuid)
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return storage[i];
@@ -70,7 +71,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] resumes = Arrays.copyOf(storage,size);
+        Resume[] resumes = Arrays.copyOf(storage, size);
         return resumes;
     }
 
