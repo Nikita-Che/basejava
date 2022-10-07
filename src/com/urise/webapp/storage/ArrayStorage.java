@@ -17,28 +17,56 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        //TODO check if resume NOT Present sout(uuid)
-        //TODO check oversize
+        if(size==storage.length){
+            System.out.println("Массив резюме переполнен");
+            return;
+        }
+
+        for (int i = 0; i < size; i++) {
+            if(storage[i].getUuid().equals(r.getUuid())){
+                System.out.println("Такое резюме " + r.getUuid() + " уже существует");
+                return;
+            }
+        }
+
         storage[size] = r;
         size++;
     }
 
-    public void upDate(Resume r, String newUuid) {
-        //TODO check if resume  Present  sout(uuid)
+    public void upDate(Resume r) {
+        for (int i = 0; i < size; i++) {
+            if(!storage[i].getUuid().equals(r.getUuid())){
+                System.out.println("Нет такого резюме " + r.getUuid());
+            }
+        }
+
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
+                storage[i].setUuid(storage[i].getUuid() + " updated");
+            }
+        }
     }
 
     public Resume get(String uuid) {
-        //TODO check if resume Present  sout(uuid)
         for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
+            if (!storage[i].getUuid().equals(uuid)) {
                 return storage[i];
+            }else{
+                System.out.println("Нет такого резюме " + uuid);
+                return null;
             }
         }
         return null;
     }
 
     public void delete(String uuid) {
-        //TODO check if resume  Present  sout(uuid)
+        for (int i = 0; i < size; i++) {
+            if(!storage[i].getUuid().equals(uuid)){
+                System.out.println("Нет такого резюме " + uuid);
+            }
+            break;
+        }
+
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 storage[i] = storage[size - 1];
@@ -47,25 +75,6 @@ public class ArrayStorage {
             }
         }
     }
-
-//        //deleting element
-//        int deletedElementIndex = 0;
-//        boolean isDeleted = false;
-//        for (int i = 0; i < size; i++) {
-//            if (storage[i].uuid.equalsIgnoreCase(uuid)) {
-//                storage[i] = null;
-//                deletedElementIndex = i;
-//                isDeleted = true;
-//                size--;
-//                break;
-//            }
-//        }
-//        //right shift elements
-//        for (int i = deletedElementIndex; i < size; i++) {
-//            if (isDeleted) {
-//                storage[i] = storage[i + 1];
-//            }
-//        }
 
     /**
      * @return array, contains only Resumes in storage (without null)
