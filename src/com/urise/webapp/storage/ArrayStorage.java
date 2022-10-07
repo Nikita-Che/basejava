@@ -17,28 +17,16 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if(size==storage.length){
-            System.out.println("Массив резюме переполнен");
-            return;
-        }
+        if (isOverSizeStorage()) return;
 
-        for (int i = 0; i < size; i++) {
-            if(storage[i].getUuid().equals(r.getUuid())){
-                System.out.println("Такое резюме " + r.getUuid() + " уже существует");
-                return;
-            }
-        }
+        if (isResumePresented(r)) return;
 
         storage[size] = r;
         size++;
     }
 
     public void upDate(Resume r) {
-        for (int i = 0; i < size; i++) {
-            if(!storage[i].getUuid().equals(r.getUuid())){
-                System.out.println("Нет такого резюме " + r.getUuid());
-            }
-        }
+        if (isResumeNotPresented(r)) return;
 
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(r.getUuid())) {
@@ -48,24 +36,18 @@ public class ArrayStorage {
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (!storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            }else{
-                System.out.println("Нет такого резюме " + uuid);
-                return null;
-            }
-        }
-        return null;
+        Resume resume = new Resume();
+        resume.setUuid(uuid);
+
+        if(isResumeNotPresented(resume)) return null;
+
+        return resume;
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if(!storage[i].getUuid().equals(uuid)){
-                System.out.println("Нет такого резюме " + uuid);
-            }
-            break;
-        }
+        Resume resume = new Resume();
+        resume.setUuid(uuid);
+        if(isResumeNotPresented(resume)) return;
 
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
@@ -86,5 +68,33 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    private boolean isResumePresented(Resume r) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
+                System.out.println("Такое резюме " + r.getUuid() + " уже существует");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isResumeNotPresented(Resume r) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
+                return false;
+            }
+        }
+        System.out.println("Такое резюме " + r.getUuid() + " НЕ существует");
+        return true;
+    }
+
+    private boolean isOverSizeStorage() {
+        if (size == storage.length) {
+            System.out.println("Массив резюме переполнен");
+            return true;
+        }
+        return false;
     }
 }
