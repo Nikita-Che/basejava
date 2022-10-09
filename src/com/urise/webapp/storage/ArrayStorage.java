@@ -47,7 +47,7 @@ public class ArrayStorage {
         if (getSearchKey(uuid) == -1) {
             System.out.println("Такое резюме " + uuid + " НЕ существует");
         } else {
-            storage[getSearchKey(uuid)]=storage[size-1];
+            storage[getSearchKey(uuid)] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         }
