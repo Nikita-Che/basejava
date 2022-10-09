@@ -8,7 +8,8 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private final int STORAGE_LIMIT = 10000;
+    private final Resume[] storage = new Resume[STORAGE_LIMIT];
     private int size = 0;
 
     public void clear() {
@@ -17,44 +18,38 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (isOverSizeStorage()) return;
-
-        if (isResumePresented(r)) return;
-
-        storage[size] = r;
-        size++;
-    }
-
-    public void upDate(Resume r) {
-        if (isResumeNotPresented(r)) return;
-
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(r.getUuid())) {
-                storage[i].setUuid(storage[i].getUuid() + " updated");
-            }
+        if (size == storage.length) {
+            System.out.println("Массив резюме переполнен");
+            return;
+        } else if (getSearchKey(r.getUuid()) >= 0) {
+            return;
+        } else {
+            storage[size] = r;
+            size++;
         }
     }
 
+    public void update(Resume r) {
+        storage[getSearchKey(r.getUuid())] = r;
+    }
+
     public Resume get(String uuid) {
-        Resume resume = new Resume();
-        resume.setUuid(uuid);
+        if (getSearchKey(uuid) == -1) {
+            System.out.println("Такое резюме " + uuid + " НЕ существует");
+        } else {
+            return storage[getSearchKey(uuid)];
+        }
 
-        if(isResumeNotPresented(resume)) return null;
-
-        return resume;
+        return null;
     }
 
     public void delete(String uuid) {
-        Resume resume = new Resume();
-        resume.setUuid(uuid);
-        if(isResumeNotPresented(resume)) return;
-
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-            }
+        if (getSearchKey(uuid) == -1) {
+            System.out.println("Такое резюме " + uuid + " НЕ существует");
+        } else {
+            storage[getSearchKey(uuid)]=storage[size-1];
+            storage[size - 1] = null;
+            size--;
         }
     }
 
@@ -70,31 +65,16 @@ public class ArrayStorage {
         return size;
     }
 
-    private boolean isResumePresented(Resume r) {
+    private int getSearchKey(String uuid) {
+        int searchKey = -1;
+
         for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(r.getUuid())) {
-                System.out.println("Такое резюме " + r.getUuid() + " уже существует");
-                return true;
+            if (storage[i].getUuid().equals(uuid)) {
+                searchKey = i;
+                break;
             }
         }
-        return false;
-    }
 
-    private boolean isResumeNotPresented(Resume r) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(r.getUuid())) {
-                return false;
-            }
-        }
-        System.out.println("Такое резюме " + r.getUuid() + " НЕ существует");
-        return true;
-    }
-
-    private boolean isOverSizeStorage() {
-        if (size == storage.length) {
-            System.out.println("Массив резюме переполнен");
-            return true;
-        }
-        return false;
+        return searchKey;
     }
 }
