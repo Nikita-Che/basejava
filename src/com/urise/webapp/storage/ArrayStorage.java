@@ -20,9 +20,7 @@ public class ArrayStorage {
     public void save(Resume r) {
         if (size == storage.length) {
             System.out.println("Массив резюме переполнен");
-            return;
         } else if (getSearchKey(r.getUuid()) >= 0) {
-            return;
         } else {
             storage[size] = r;
             size++;
@@ -30,24 +28,30 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        storage[getSearchKey(r.getUuid())] = r;
+        int key = getSearchKey(r.getUuid());
+        if (key == -1) {
+            System.out.println("Такое резюме " + r.getUuid() + " НЕ существует");
+        } else {
+            storage[key] = r;
+        }
     }
 
     public Resume get(String uuid) {
-        if (getSearchKey(uuid) == -1) {
+        int key = getSearchKey(uuid);
+        if (key == -1) {
             System.out.println("Такое резюме " + uuid + " НЕ существует");
         } else {
-            return storage[getSearchKey(uuid)];
+            return storage[key];
         }
-
         return null;
     }
 
     public void delete(String uuid) {
-        if (getSearchKey(uuid) == -1) {
+        int key = getSearchKey(uuid);
+        if (key == -1) {
             System.out.println("Такое резюме " + uuid + " НЕ существует");
         } else {
-            storage[getSearchKey(uuid)] = storage[size - 1];
+            storage[key] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         }
@@ -57,8 +61,7 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] resumes = Arrays.copyOf(storage, size);
-        return resumes;
+        return Arrays.copyOf(storage, size);
     }
 
     public int size() {
@@ -66,15 +69,11 @@ public class ArrayStorage {
     }
 
     private int getSearchKey(String uuid) {
-        int searchKey = -1;
-
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
-                searchKey = i;
-                break;
+                return i;
             }
         }
-
-        return searchKey;
+        return -1;
     }
 }
