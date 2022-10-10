@@ -18,9 +18,11 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (size == storage.length) {
+        int key = getSearchKey(r.getUuid());
+        if (key != -1) {
+            System.out.println("Такое резюме " + r.getUuid() + " Уже существует");
+        } else if (size == storage.length) {
             System.out.println("Массив резюме переполнен");
-        } else if (getSearchKey(r.getUuid()) >= 0) {
         } else {
             storage[size] = r;
             size++;
@@ -40,10 +42,9 @@ public class ArrayStorage {
         int key = getSearchKey(uuid);
         if (key == -1) {
             System.out.println("Такое резюме " + uuid + " НЕ существует");
-        } else {
-            return storage[key];
+            return null;
         }
-        return null;
+        return storage[key];
     }
 
     public void delete(String uuid) {
