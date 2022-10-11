@@ -4,14 +4,26 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class SortedArrayStorage extends AbstractArrayStorage{
+public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void save(Resume r) {
-        //Смотри задание.
-        //Arrays.binarysearch если нет элемента возвращает -2. 2 потенциально место где он мог бы быть. Проверь свдвиг на единицу
-        //Вынести в абсстрактный
-        //или расставлять по местам по хешкоду и остальное сдвигать
+        int indexOfPosition = -getIndex(r.getUuid()) -1 ;  //определяет индекс местоназначения
+
+        //в зависимости от того занято или нет сдвигать массив копированием справо с момента индекс+1
+        if (storage[indexOfPosition] != null) {
+
+            for (int i = indexOfPosition; i < size; i++) {
+                //сдвинуть весь массив вправо на 1 индекс
+
+            }
+
+            storage[indexOfPosition] = r;
+            size++;
+        } else {
+            storage[indexOfPosition] = r;
+            size++;
+        }
     }
 
     @Override
@@ -28,6 +40,6 @@ public class SortedArrayStorage extends AbstractArrayStorage{
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume();
         searchKey.setUuid(uuid);
-        return Arrays.binarySearch(storage,0,size, searchKey);
+        return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }
