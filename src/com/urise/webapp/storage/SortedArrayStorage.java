@@ -5,29 +5,23 @@ import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage{
-    @Override
-    public void clear() {
-
-    }
 
     @Override
     public void save(Resume r) {
-
+        //Смотри задание.
+        //Arrays.binarysearch если нет элемента возвращает -2. 2 потенциально место где он мог бы быть. Проверь свдвиг на единицу
+        //Вынести в абсстрактный
+        //или расставлять по местам по хешкоду и остальное сдвигать
     }
 
     @Override
     public void update(Resume r) {
-
+        //определи хеш код и упдейтни
     }
 
     @Override
     public void delete(String uuid) {
-
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+        //определи хеш код и удали
     }
 
     @Override
