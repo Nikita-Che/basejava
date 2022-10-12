@@ -8,16 +8,12 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void save(Resume r) {
-        int indexOfPosition = -getIndex(r.getUuid()) -1 ;  //определяет индекс местоназначения
+        int indexOfPosition = -getIndex(r.getUuid()) - 1;  //определяет индекс местоназначения
 
-        //в зависимости от того занято или нет сдвигать массив копированием справо с момента индекс+1
         if (storage[indexOfPosition] != null) {
-
-            for (int i = indexOfPosition; i < size; i++) {
-                //сдвинуть весь массив вправо на 1 индекс
-
+            for (int i = size; i >= 0; i--) {
+                storage[i + 1] = storage[i];
             }
-
             storage[indexOfPosition] = r;
             size++;
         } else {
@@ -28,12 +24,17 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void update(Resume r) {
-        //определи хеш код и упдейтни
+        int indexOfPosition = getIndex(r.getUuid());
+        storage[indexOfPosition] = r;
     }
 
     @Override
     public void delete(String uuid) {
-        //определи хеш код и удали
+        int indexOfPosition = getIndex(uuid);
+        for (int i = indexOfPosition; i < size; i++) {
+            storage[i] = storage[i + 1];
+        }
+        size--;
     }
 
     @Override
