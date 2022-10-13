@@ -7,34 +7,26 @@ import java.util.Arrays;
 public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void save(Resume r) {
-        int indexOfPosition = -getIndex(r.getUuid()) - 1;  //определяет индекс местоназначения
+    public void insertResume(Resume r, int indexOfPosition) {
+        int index = -indexOfPosition - 1;
 
-        if (storage[indexOfPosition] != null) {
+        if (storage[index] != null) {
             for (int i = size; i >= 0; i--) {
                 storage[i + 1] = storage[i];
             }
-            storage[indexOfPosition] = r;
+            storage[index] = r;
             size++;
         } else {
-            storage[indexOfPosition] = r;
+            storage[index] = r;
             size++;
         }
     }
 
     @Override
-    public void update(Resume r) {
-        int indexOfPosition = getIndex(r.getUuid());
-        storage[indexOfPosition] = r;
-    }
-
-    @Override
-    public void delete(String uuid) {
-        int indexOfPosition = getIndex(uuid);
+    public void deleteResume(int indexOfPosition) {
         for (int i = indexOfPosition; i < size; i++) {
             storage[i] = storage[i + 1];
         }
-        size--;
     }
 
     @Override

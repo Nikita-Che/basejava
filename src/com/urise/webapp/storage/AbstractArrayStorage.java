@@ -17,23 +17,60 @@ public abstract class AbstractArrayStorage implements Storage {
         return size;
     }
 
-    final public Resume get(String uuid) {
-        int key = getIndex(uuid);
-        if (key == -1) {
-            System.out.println("Такое резюме " + uuid + " НЕ существует");
-            return null;
-        }
-        return storage[key];
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
-    }
-
-    public void clear() {
+    final public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
+    final public Resume[] getAll() {
+        return Arrays.copyOfRange(storage, 0, size);
+    }
+
+    final public Resume get(String uuid) {
+        int indexOfPosition = getIndex(uuid);
+        if (indexOfPosition == -1) {
+            System.out.println("Такое резюме " + uuid + " НЕ существует");
+            return null;
+        }
+        return storage[indexOfPosition];
+    }
+
+    final public void update(Resume resume) {
+        int indexOfPosition = getIndex(resume.getUuid());
+
+        if (indexOfPosition >= 0) {
+            storage[indexOfPosition] = resume;
+        } else {
+            System.out.println("Такое резюме " + resume.getUuid() + " НЕ существует");
+        }
+    }
+
+    final public void save(Resume resume) {
+        int indexOfPosition = getIndex(resume.getUuid());
+
+        if (size == STORAGE_LIMIT) {
+            System.out.println("Массив резюме переполнен");
+        } else if (indexOfPosition > 0) {
+            System.out.println("Такое резюме " + resume.getUuid() + " Уже существует");
+        } else {
+            insertResume(resume, indexOfPosition);
+        }
+    }
+
+    final public void delete(String uuid) {
+        int indexOfPosition = getIndex(uuid);
+
+        if (indexOfPosition == -1) {
+            System.out.println("Такое резюме " + uuid + " НЕ существует");
+        } else {
+            deleteResume(indexOfPosition);
+            size--;
+        }
+    }
+
     protected abstract int getIndex(String uuid);
+
+    protected abstract void insertResume(Resume r, int indexOfPosition);
+
+    protected abstract void deleteResume(int indexOfPosition);
 }
