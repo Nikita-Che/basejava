@@ -12,20 +12,15 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int index = -indexOfPosition - 1;
 
         if (storage[index] != null) {
-            for (int i = size; i >= 0; i--) {
-                storage[i + 1] = storage[i];
-            }
-            storage[index] = r;
-        } else {
-            storage[index] = r;
+            if (size + 1 >= 0) System.arraycopy(storage, 0, storage, 1, size + 1);
         }
+        storage[index] = r;
     }
 
     @Override
     public void deleteResume(int indexOfPosition) {
-        for (int i = indexOfPosition; i < size; i++) {
-            storage[i] = storage[i + 1];
-        }
+        if (size - indexOfPosition >= 0)
+            System.arraycopy(storage, indexOfPosition + 1, storage, indexOfPosition, size - indexOfPosition);
     }
 
     @Override
