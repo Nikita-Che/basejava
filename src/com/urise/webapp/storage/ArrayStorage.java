@@ -10,7 +10,6 @@ public class ArrayStorage extends AbstractArrayStorage {
     @Override
     public void insertResume(Resume r, int indexOfPosition) {
         storage[size] = r;
-        size++;
     }
 
     @Override

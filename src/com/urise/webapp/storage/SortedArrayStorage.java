@@ -8,6 +8,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     public void insertResume(Resume r, int indexOfPosition) {
+        // TODO: 14.10.2022 Сдвиги делай при помощи System.arraycopy - это намного эффективнее работает чем сдвиг при помощи циклов
         int index = -indexOfPosition - 1;
 
         if (storage[index] != null) {
@@ -15,10 +16,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
                 storage[i + 1] = storage[i];
             }
             storage[index] = r;
-            size++;
         } else {
             storage[index] = r;
-            size++;
         }
     }
 
