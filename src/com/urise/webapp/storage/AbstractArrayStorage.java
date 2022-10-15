@@ -1,5 +1,8 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -28,9 +31,8 @@ public abstract class AbstractArrayStorage implements Storage {
 
     final public Resume get(String uuid) {
         int index = getIndex(uuid);
-        if (index == -1) {
-            System.out.println("Такое резюме " + uuid + " НЕ существует");
-            return null;
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
         }
         return storage[index];
     }
@@ -41,7 +43,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index >= 0) {
             storage[index] = resume;
         } else {
-            System.out.println("Такое резюме " + resume.getUuid() + " НЕ существует");
+            throw new NotExistStorageException(resume.getUuid());
         }
     }
 
@@ -49,9 +51,9 @@ public abstract class AbstractArrayStorage implements Storage {
         int index = getIndex(resume.getUuid());
 
         if (size == STORAGE_LIMIT) {
-            System.out.println("Массив резюме переполнен");
+            throw new StorageException("Массив резюме переполнен", resume.getUuid());
         } else if (index > 0) {
-            System.out.println("Такое резюме " + resume.getUuid() + " Уже существует");
+            throw new ExistStorageException(resume.getUuid());
         } else {
             insertResume(resume, index);
             size++;
@@ -61,8 +63,8 @@ public abstract class AbstractArrayStorage implements Storage {
     final public void delete(String uuid) {
         int index = getIndex(uuid);
 
-        if (index == -1) {
-            System.out.println("Такое резюме " + uuid + " НЕ существует");
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
         } else {
             deleteResume(index);
             size--;
