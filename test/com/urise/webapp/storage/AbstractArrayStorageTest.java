@@ -6,10 +6,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-public class AbstractArrayStorageTest {
+public abstract class AbstractArrayStorageTest {
     private Storage storage;
+
     private final String UUID_1 = "uuid1";
     private final String UUID_2 = "uuid2";
     private final String UUID_3 = "uuid3";
@@ -58,6 +57,5 @@ public class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() throws Exception {
         storage.get("dummy");
-
     }
 }
