@@ -21,5 +21,11 @@ public class MainReflection {
         method.setAccessible(true);
         method.invoke(resume);
         System.out.println(method.invoke(resume));
+
+        System.out.println("_____________");
+        Method method1 = Resume.class.getDeclaredMethod("toString",null);
+        method1.setAccessible(true);
+        method1.invoke(resume);
+        System.out.println(method1.invoke(resume));
     }
 }

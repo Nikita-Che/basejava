@@ -98,12 +98,18 @@ public abstract class AbstractArrayStorageTest {
 
     @Test(expected = StorageException.class)
     public void saveOverFlow() throws Exception {
-        try {
+        AbstractArrayStorage abstractArrayStorage = new SortedArrayStorage();
+        int indexOfLimit = abstractArrayStorage.STORAGE_LIMIT;
 
+        try {
+            for (int i = storage.size() + 1; i < indexOfLimit; i++) {
+                storage.save(new Resume());
+            }
         } catch (StorageException e) {
             Assert.fail("переполнение произошло раньше времени");
         }
-        storage.save(RESUME3);
+        storage.save(new Resume("переполнено"));
+        storage.save(new Resume("переполнено1"));
     }
 
     public Resume assertGet(Resume resume) {
