@@ -19,13 +19,13 @@ public class MainReflection {
         System.out.println("_____________");
         Method method = Resume.class.getMethod("toString");
         method.setAccessible(true);
-        method.invoke(resume);
-        System.out.println(method.invoke(resume));
+        Object invoke = method.invoke(resume);
+        System.out.println(invoke);
 
         System.out.println("_____________");
-        Method method1 = Resume.class.getDeclaredMethod("toString",null);
+        Method method1 = Resume.class.getDeclaredMethod("toString", null);
         method1.setAccessible(true);
-        method1.invoke(resume);
-        System.out.println(method1.invoke(resume));
+        Object invoke1 = method1.invoke(resume);
+        System.out.println(invoke1);
     }
 }
