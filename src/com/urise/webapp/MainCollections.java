@@ -30,27 +30,39 @@ public class MainCollections {
         Iterator<Resume> iterator = collection.iterator();
         while (iterator.hasNext()) {
             Resume r = iterator.next();
-            System.out.println(r);
+//            System.out.println(r);
             if (r.getUuid().equals(UUID_1)) {
                 iterator.remove();
             }
         }
-        System.out.println(collection.toString());
+//        System.out.println(collection.toString());
 
-        for (int i = 0; i < 1; i++) {
-            List<Resume> list = new ArrayList<>();
-            list.add(new Resume());
-            list.add(new Resume());
-            list.add(new Resume());
-            list.add(RESUME_1);
-            list.add(RESUME_1);
-            list.add(RESUME_2);
-            list.add(RESUME_2);
-            System.out.println(list.toString());
+//        for (int i = 0; i < 1; i++) {
+//            List<Resume> list = new ArrayList<>();
+//            list.add(new Resume());
+//            list.add(new Resume());
+//            list.add(new Resume());
+//            list.add(RESUME_1);
+//            list.add(RESUME_1);
+//            list.add(RESUME_2);
+//            list.add(RESUME_2);
+//            System.out.println(list.toString());
+//
+//            Set<Resume> set1 = new HashSet<>(list);
+//            System.out.println(set1.toString());
+//        }
 
-            Set<Resume> set1 = new HashSet<>(list);
-            System.out.println(set1.toString());
+        Map<String, Resume> map = new HashMap<String, Resume>();
+        map.put(UUID_1, RESUME_1);
+        map.put(UUID_2, RESUME_2);
+        map.put(UUID_3, RESUME_3);
+
+        for (String uuid : map.keySet()) {
+            System.out.println(map.get(uuid));
         }
 
+        for (Map.Entry<String, Resume> entry : map.entrySet()) {
+            System.out.println(entry.getValue());
+        }
     }
 }
