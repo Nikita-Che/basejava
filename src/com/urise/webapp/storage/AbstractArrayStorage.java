@@ -1,7 +1,5 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.ExistStorageException;
-import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
@@ -10,7 +8,7 @@ import java.util.Arrays;
 /**
  * Array based storage for Resumes
  */
-public abstract class AbstractArrayStorage implements Storage {
+public abstract class AbstractArrayStorage extends AbstractStorage {
     protected final static int STORAGE_LIMIT = 10000;
 
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -29,46 +27,30 @@ public abstract class AbstractArrayStorage implements Storage {
         return Arrays.copyOfRange(storage, 0, size);
     }
 
-    final public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        return storage[index];
+    @Override
+    protected Resume getResume(String uuid) {
+        return storage[getIndex(uuid)];
     }
 
-    final public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-
-        if (index >= 0) {
-            storage[index] = resume;
-        } else {
-            throw new NotExistStorageException(resume.getUuid());
-        }
+    @Override
+    protected void updateResume(Resume resume) {
+        storage[getIndex(resume.getUuid())] = resume;
     }
 
-    final public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-
+    @Override
+    protected void saveResume(Resume resume) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Массив резюме переполнен", resume.getUuid());
-        } else if (index > 0) {
-            throw new ExistStorageException(resume.getUuid());
         } else {
-            insertResume(resume, index);
+            insertResume(resume, getIndex(resume.getUuid()));
             size++;
         }
     }
 
-    final public void delete(String uuid) {
-        int index = getIndex(uuid);
-
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            deleteResume(index);
-            size--;
-        }
+    @Override
+    protected void deleteResume(String uuid) {
+        deleteResume(getIndex(uuid));
+        size--;
     }
 
     protected abstract void insertResume(Resume r, int index);
