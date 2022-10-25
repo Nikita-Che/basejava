@@ -12,15 +12,11 @@ public abstract class AbstractStorage implements Storage {
         return doGet(uuid);
     }
 
-    protected abstract Resume doGet(String uuid);
-
     @Override
     public void update(Resume resume) {
         getSearchKeyParentNotExist(resume.getUuid());
         doUpdate(resume);
     }
-
-    protected abstract void doUpdate(Resume resume);
 
     @Override
     public void save(Resume r) {
@@ -28,13 +24,17 @@ public abstract class AbstractStorage implements Storage {
         doSave(r);
     }
 
-    protected abstract void doSave(Resume resume);
-
     @Override
     public void delete(String uuid) {
         getSearchKeyParentNotExist(uuid);
         doDelete(uuid);
     }
+
+    protected abstract Resume doGet(String uuid);
+
+    protected abstract void doUpdate(Resume resume);
+
+    protected abstract void doSave(Resume resume);
 
     protected abstract void doDelete(String uuid);
 
