@@ -20,6 +20,7 @@ public class ListStorageTest {
     private static final Resume RESUME_2 = new Resume(UUID_2);
     private static final Resume RESUME_3 = new Resume(UUID_3);
     private static final Resume RESUME_4 = new Resume(UUID_4);
+    private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST);
 
     @Before
     public void setUp() throws Exception {
@@ -34,7 +35,7 @@ public class ListStorageTest {
     }
 
     private void assertGet(Resume resume) {
-        Resume r = new Resume(resume.getUuid());
+        Resume r = storage.get(resume.getUuid());
         assertEquals(r.getUuid(), resume.getUuid());
     }
 
@@ -43,10 +44,11 @@ public class ListStorageTest {
         assertSize(3);
     }
 
-    @Test()
+    @Test(expected = NotExistStorageException.class)
     public void clear() {
         storage.clear();
         assertSize(0);
+        assertGet(RESUME_5);
     }
 
     @Test
@@ -57,8 +59,8 @@ public class ListStorageTest {
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void getNotExist() throws Exception {
-        storage.get(UUID_NOT_EXIST);
+    public void getResumeNotExist() throws Exception {
+        assertGet(RESUME_5);
     }
 
     @Test
@@ -69,16 +71,15 @@ public class ListStorageTest {
     }
 
     @Test
-    public void update() {
+    public void updateResume() {
         Resume resume = RESUME_1;
         storage.update(resume);
         assertSame(resume, RESUME_1);
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void updateNotExist() throws Exception {
-        Resume resume = new Resume(UUID_NOT_EXIST);
-        storage.update(resume);
+    public void updateResumeNotExist() throws Exception {
+        storage.update(RESUME_5);
     }
 
     @Test
