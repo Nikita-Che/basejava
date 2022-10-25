@@ -56,7 +56,8 @@ public class MapStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] expected = new Resume[]{RESUME_2, RESUME_1, RESUME_3}; // Проверить заполнение. Если первым в массив складывать R1 то тест не проходит
+        // TODO: 25.10.2022  Проверить заполнение. Если первым в массив складывать R1 то тест не проходит
+        Resume[] expected = new Resume[]{RESUME_2, RESUME_1, RESUME_3};
         assertSize(3);
         assertArrayEquals(expected, storage.getAll());
     }
@@ -79,11 +80,5 @@ public class MapStorageTest {
     public void deleteResume() {
         storage.delete(UUID_1);
         assertSize(2);
-    }
-
-    @Test
-    public void getIndex() {
-        int mapStorageIndex = 0;
-        assertEquals(0, mapStorageIndex);
     }
 }

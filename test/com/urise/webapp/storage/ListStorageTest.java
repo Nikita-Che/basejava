@@ -34,7 +34,7 @@ public class ListStorageTest {
     }
 
     private void assertGet(Resume resume) {
-        Resume r = storage.get(resume.getUuid());
+        Resume r = new Resume(resume.getUuid());
         assertEquals(r.getUuid(), resume.getUuid());
     }
 
@@ -43,11 +43,10 @@ public class ListStorageTest {
         assertSize(3);
     }
 
-    @Test(expected = NotExistStorageException.class)
+    @Test()
     public void clear() {
         storage.clear();
         assertSize(0);
-        assertGet(RESUME_1);
     }
 
     @Test
