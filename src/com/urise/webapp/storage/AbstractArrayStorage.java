@@ -29,12 +29,12 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected Resume doGet(String uuid) {
-        return storage[getIndex(uuid)];
+        return storage[(int) getSearchKey(uuid)];
     }
 
     @Override
     protected void doUpdate(Resume resume) {
-        storage[getIndex(resume.getUuid())] = resume;
+        storage[(int) getSearchKey(resume.getUuid())] = resume;
     }
 
     @Override
@@ -42,14 +42,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Массив резюме переполнен", resume.getUuid());
         } else {
-            insertResume(resume, getIndex(resume.getUuid()));
+            insertResume(resume, (int) getSearchKey(resume.getUuid()));
             size++;
         }
     }
 
     @Override
     protected void doDelete(String uuid) {
-        deleteResume(getIndex(uuid));
+        deleteResume((int) getSearchKey(uuid));
         size--;
     }
 
@@ -57,5 +57,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     protected abstract void deleteResume(int index);
 
-    protected abstract int getIndex(String uuid);
+    protected abstract Object getSearchKey(String uuid);
+
 }

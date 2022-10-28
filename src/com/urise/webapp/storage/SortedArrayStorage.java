@@ -18,14 +18,15 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         System.arraycopy(storage, indexOfPosition + 1, storage, indexOfPosition, size - indexOfPosition);
     }
 
-    protected int getIndex(String uuid) {
+    @Override
+    protected Object getSearchKey(String uuid) {
         Resume searchKey = new Resume(uuid);
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 
     @Override
-    protected boolean getSearchKey(String uuid) {
-        if (getIndex(uuid) < 0) {
+    protected boolean isExit(Object searchKey) {
+        if ((int) searchKey < 0) {
             return false;
         }
         return true;

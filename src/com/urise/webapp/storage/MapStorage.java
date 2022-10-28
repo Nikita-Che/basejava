@@ -45,7 +45,8 @@ public class MapStorage extends AbstractStorage {
         storage.remove(uuid);
     }
 
-    protected int getIndex(String uuid) {
+    @Override
+    protected Object getSearchKey(String uuid) {
         for (String uuid1 : storage.keySet()) {
             if (uuid1.equals(uuid)) {
                 return 1;
@@ -55,8 +56,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean getSearchKey(String uuid) {
-        if (getIndex(uuid) <= 0) {
+    protected boolean isExit(Object searchKey) {
+        if ((int) searchKey <= 0) {
             return false;
         }
         return true;

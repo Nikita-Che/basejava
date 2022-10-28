@@ -8,26 +8,42 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public Resume get(String uuid) {
-        getSearchKeyParentNotExist(uuid);
+        getNotExistingSearchKey(uuid);
         return doGet(uuid);
     }
 
     @Override
     public void update(Resume resume) {
-        getSearchKeyParentNotExist(resume.getUuid());
+        getNotExistingSearchKey(resume.getUuid());
         doUpdate(resume);
     }
 
     @Override
     public void save(Resume r) {
-        getSearchKeyParentExist(r.getUuid());
+        getExistingSearchKey(r.getUuid());
         doSave(r);
     }
 
     @Override
     public void delete(String uuid) {
-        getSearchKeyParentNotExist(uuid);
+        getNotExistingSearchKey(uuid);
         doDelete(uuid);
+    }
+
+    private Object getNotExistingSearchKey(String uuid) {
+        Object searchKey = getSearchKey(uuid);
+        if (!isExit(searchKey)) {
+            throw new NotExistStorageException(uuid);
+        }
+        return searchKey;
+    }
+
+    private Object getExistingSearchKey(String uuid) {
+        Object searchKey = getSearchKey(uuid);
+        if (isExit(searchKey)) {
+            throw new ExistStorageException(uuid);
+        }
+        return searchKey;
     }
 
     protected abstract Resume doGet(String uuid);
@@ -38,27 +54,7 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void doDelete(String uuid);
 
-    protected abstract boolean getSearchKey(String uuid);
+    protected abstract Object getSearchKey(String uuid);
 
-    private void getSearchKeyParentNotExist(String uuid) {
-        boolean searchKey = getSearchKey(uuid);
-        if (!searchKey) {
-            getNotExistingSearchKey(uuid);
-        }
-    }
-
-    private void getSearchKeyParentExist(String uuid) {
-        boolean searchKey = getSearchKey(uuid);
-        if (searchKey) {
-            getExistingSearchKey(uuid);
-        }
-    }
-
-    private void getNotExistingSearchKey(String uuid) {
-        throw new NotExistStorageException(uuid);
-    }
-
-    private void getExistingSearchKey(String uuid) {
-        throw new ExistStorageException(uuid);
-    }
+    protected abstract boolean isExit(Object searchKey);
 }

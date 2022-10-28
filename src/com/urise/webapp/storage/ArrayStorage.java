@@ -18,7 +18,8 @@ public class ArrayStorage extends AbstractArrayStorage {
         storage[size - 1] = null;
     }
 
-    protected int getIndex(String uuid) {
+    @Override
+    protected Object getSearchKey(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
@@ -28,8 +29,8 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected boolean getSearchKey(String uuid) {
-        if (getIndex(uuid) < 0) {
+    protected boolean isExit(Object searchKey) {
+        if ((int) searchKey < 0) {
             return false;
         }
         return true;
