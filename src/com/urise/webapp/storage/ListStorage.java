@@ -31,18 +31,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Resume resume) {
-        storage.set((Integer) getSearchKey(resume.getUuid()), resume);
+    protected void doUpdate(Resume resume, Object searchKey) {
+        storage.set((Integer) searchKey, resume);
     }
 
     @Override
-    protected void doSave(Resume resume) {
+    protected void doSave(Resume resume, Object searchKey) {
         storage.add(resume);
     }
 
     @Override
-    protected void doDelete(String uuid) {
-        storage.remove(new Resume(uuid));
+    protected void doDelete(Object searchKey) {
+        storage.remove(storage.get((Integer) searchKey));
     }
 
     @Override

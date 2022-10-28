@@ -32,18 +32,18 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void doUpdate(Resume resume) {
+    protected void doUpdate(Resume resume, Object searchKey) {
         storage.computeIfPresent(resume.getUuid(), (key, value) -> value = resume);
     }
 
     @Override
-    protected void doSave(Resume resume) {
+    protected void doSave(Resume resume, Object searchKey) {
         storage.putIfAbsent(resume.getUuid(), resume);
     }
 
     @Override
-    protected void doDelete(String uuid) {
-        storage.remove(uuid);
+    protected void doDelete(Object searchKey) {
+        storage.remove(searchKey);
     }
 
     @Override
