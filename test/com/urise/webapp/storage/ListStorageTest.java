@@ -65,7 +65,7 @@ public class ListStorageTest {
 
     @Test
     public void getAll() {
-        Resume[] expected = new Resume[]{RESUME_3, RESUME_2, RESUME_1}; // TODO: 28.10.2022 точно так же как в мапе порядок кривой 
+        Resume[] expected = new Resume[]{RESUME_3, RESUME_2, RESUME_1};
         assertSize(3);
         assertArrayEquals(expected, storage.getAll());
     }
