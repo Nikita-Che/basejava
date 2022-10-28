@@ -35,7 +35,8 @@ public class MapStorageTest {
     }
 
     private void assertGet(Resume resume) {
-        Resume r = storage.get(resume.getUuid());
+        Resume r = storage.get(resume.getUuid()); //вот тут r = null
+//        Resume r1 = new Resume(resume.getUuid());
         assertEquals(r.getUuid(), resume.getUuid());
     }
 
@@ -65,7 +66,6 @@ public class MapStorageTest {
 
     @Test
     public void getAll() {
-        // TODO: 25.10.2022  Проверить заполнение. Если первым в массив складывать R1 то тест не проходит
         Resume[] expected = new Resume[]{RESUME_2, RESUME_1, RESUME_3};
         assertSize(3);
         assertArrayEquals(expected, storage.getAll());
