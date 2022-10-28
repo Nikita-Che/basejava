@@ -28,8 +28,9 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected Resume doGet(String uuid) {
-        return storage[(int) getSearchKey(uuid)];
+    protected Resume doGet(Object searchKey) {
+        return storage[(int) searchKey];
+//      return storage[(int) getSearchKey(uuid)];
     }
 
     @Override
