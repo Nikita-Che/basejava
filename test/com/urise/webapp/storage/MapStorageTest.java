@@ -35,9 +35,8 @@ public class MapStorageTest {
     }
 
     private void assertGet(Resume resume) {
-        Resume r = storage.get(resume.getUuid()); //вот тут r = null
-        Resume r1 = new Resume(resume.getUuid());
-        assertEquals(r1.getUuid(), resume.getUuid());
+        Resume r = storage.get(resume.getUuid());
+        assertEquals(r.getUuid(), resume.getUuid());
     }
 
     @Test
@@ -95,11 +94,10 @@ public class MapStorageTest {
         storage.save(RESUME_1);
     }
 
-//    @Test(expected = NotExistStorageException.class)
-    @Test
+    @Test(expected = NotExistStorageException.class)
     public void deleteResume() {
         storage.delete(UUID_1);
-//        assertSize(2);
+        assertSize(2);
         assertGet(RESUME_1);
     }
 

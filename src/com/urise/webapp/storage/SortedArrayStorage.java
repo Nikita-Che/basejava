@@ -26,7 +26,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected boolean isExit(Object searchKey) {
-        if ((int) searchKey < 0) {
+        if ((Integer) searchKey < 0) {
             return false;
         }
         return true;
