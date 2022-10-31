@@ -29,7 +29,7 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected boolean isExit(Object searchKey) {
+    protected boolean isExist(Object searchKey) {
         if ((Integer) searchKey < 0) {
             return false;
         }
