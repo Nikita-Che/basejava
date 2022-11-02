@@ -10,7 +10,7 @@ import org.junit.Test;
 import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
 import static org.junit.Assert.*;
 
-public abstract class AbstractArrayStorageTest {
+public abstract class AbstractStorageTest {
     private final Storage storage;
 
     private static final String UUID_1 = "uuid1";
@@ -24,7 +24,7 @@ public abstract class AbstractArrayStorageTest {
     private static final Resume RESUME_4 = new Resume(UUID_4);
     private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST);
 
-    protected AbstractArrayStorageTest(Storage storage) {
+    protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 
@@ -100,6 +100,7 @@ public abstract class AbstractArrayStorageTest {
     public void saveExist() throws Exception {
         storage.save(RESUME_2);
     }
+
 
     @Test(expected = StorageException.class)
     public void saveOverFlow() throws Exception {
