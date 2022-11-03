@@ -5,6 +5,7 @@ import com.urise.webapp.model.Resume;
 /**
  * Array based storage for Resumes
  */
+// TODO: 03.11.2022 refactor getAll
 public interface Storage {
 
     void clear();
@@ -21,6 +22,9 @@ public interface Storage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll();
+    // TODO: 03.11.2022 refactor 
+    //return list sorted by Name
+    //List<Resume> gelAllSorted(); по имени фамиилии
 
     int size();
 }
