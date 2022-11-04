@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 //@RunWith(Suite.class)
 //@Suite.SuiteClasses({ArrayStorageTest.class,
 //        SortedArrayStorageTest.class,
@@ -59,9 +62,10 @@ public abstract class AbstractStorageTest {
     @Test
     public void clear() throws Exception {
         Assertions.assertThrows(NotExistStorageException.class, () -> {
+            List<Resume> list = null;
             storage.clear();
             assertSize(0);
-            Assertions.assertArrayEquals(new Resume[0], storage.getAll());
+            Assertions.assertEquals(list, storage.getAllSorted());
             assertGet(RESUME_1);
         });
     }
@@ -82,9 +86,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() throws Exception {
-        Resume[] expected = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
+        List<Resume> expected = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         assertSize(3);
-        Assertions.assertArrayEquals(expected, storage.getAll());
+        Assertions.assertEquals(expected, storage.getAllSorted());
     }
 
     @Test()
