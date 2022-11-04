@@ -2,24 +2,19 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 
-import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ArrayStorageTest.class,
-        SortedArrayStorageTest.class,
-        ListStorageTest.class,
-        MapStorageTest.class,
-})
-abstract class allTests{
-}
+//@RunWith(Suite.class)
+//@Suite.SuiteClasses({ArrayStorageTest.class,
+//        SortedArrayStorageTest.class,
+//        ListStorageTest.class,
+//        MapStorageTest.class,
+//})
+//abstract class allTests{
+//}
 
 public abstract class AbstractStorageTest {
     private final Storage storage;
@@ -117,21 +112,6 @@ public abstract class AbstractStorageTest {
     public void saveExist() throws Exception {
         Assertions.assertThrows(ExistStorageException.class, () -> {
             storage.save(RESUME_2);
-        });
-    }
-
-    // TODO: 03.11.2022 исключить тест из листа и мапы
-    @Test
-    public void saveOverFlow() throws Exception {
-        try {
-            for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
-                storage.save(new Resume());
-            }
-        } catch (StorageException e) {
-            Assertions.fail("переполнение произошло раньше времени");
-        }
-        Assertions.assertThrows(StorageException.class, () -> {
-            storage.save(new Resume("переполнено"));
         });
     }
 
