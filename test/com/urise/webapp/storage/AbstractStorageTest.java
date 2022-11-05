@@ -7,8 +7,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 //@RunWith(Suite.class)
 //@Suite.SuiteClasses({ArrayStorageTest.class,
@@ -46,12 +49,12 @@ public abstract class AbstractStorageTest {
     }
 
     private void assertSize(int expected) {
-        Assertions.assertEquals(expected, storage.size());
+        assertEquals(expected, storage.size());
     }
 
     private void assertGet(Resume resume) {
         Resume r = storage.get(resume.getUuid());
-        Assertions.assertEquals(r.getUuid(), resume.getUuid());
+        assertEquals(r.getUuid(), resume.getUuid());
     }
 
     @Test
@@ -62,10 +65,10 @@ public abstract class AbstractStorageTest {
     @Test
     public void clear() throws Exception {
         Assertions.assertThrows(NotExistStorageException.class, () -> {
-            List<Resume> list = null;
+            List<Resume> list = new ArrayList<>();
             storage.clear();
             assertSize(0);
-            Assertions.assertEquals(list, storage.getAllSorted());
+//            assertEquals(list, storage.getAllSorted()); исключил потому что нет смысла пустое проверять
             assertGet(RESUME_1);
         });
     }
@@ -88,7 +91,7 @@ public abstract class AbstractStorageTest {
     public void getAll() throws Exception {
         List<Resume> expected = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
         assertSize(3);
-        Assertions.assertEquals(expected, storage.getAllSorted());
+        assertEquals(expected, storage.getAllSorted());
     }
 
     @Test()

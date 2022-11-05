@@ -1,5 +1,6 @@
 package com.urise.webapp.model;
 
+import java.util.Comparator;
 import java.util.UUID;
 
 /**
@@ -10,6 +11,8 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private String fullName;
+    // TODO: 05.11.2022 проверить конструктор, заменить порядок компарации
+    public static Comparator<Resume> comparator = new Resume.ResumeUuidComparator().thenComparing(new Resume.ResumeFullNameComparator());
 
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
@@ -32,10 +35,6 @@ public class Resume {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
     @Override
     public String toString() {
         return uuid;
@@ -54,5 +53,18 @@ public class Resume {
     @Override
     public int hashCode() {
         return uuid.hashCode();
+    }
+
+    public static class ResumeUuidComparator implements Comparator<Resume> {
+        @Override
+        public int compare(Resume o1, Resume o2) {
+            return o1.getUuid().compareTo(o2.getUuid());
+        }
+    }
+    public static class ResumeFullNameComparator implements Comparator<Resume> {
+        @Override
+        public int compare(Resume o1, Resume o2) {
+            return o1.getFullName().compareTo(o2.getFullName());
+        }
     }
 }
