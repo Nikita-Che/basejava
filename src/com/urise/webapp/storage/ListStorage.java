@@ -5,6 +5,8 @@ import com.urise.webapp.model.Resume;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.urise.webapp.model.Resume.comparator;
+
 public class ListStorage extends AbstractStorage {
     private final List<Resume> storage = new ArrayList<>();
 
@@ -20,7 +22,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-        storage.sort(Resume.comparator);
+        storage.sort(comparator);
         return storage;
     }
 

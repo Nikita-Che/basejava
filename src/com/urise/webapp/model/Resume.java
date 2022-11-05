@@ -11,8 +11,7 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private String fullName;
-    // TODO: 05.11.2022 проверить конструктор, заменить порядок компарации
-    public static Comparator<Resume> comparator = new Resume.ResumeUuidComparator().thenComparing(new Resume.ResumeFullNameComparator());
+    public static Comparator<Resume> comparator = new Resume.ResumeFullNameComparator().thenComparing(new Resume.ResumeUuidComparator());
 
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
@@ -35,10 +34,6 @@ public class Resume {
         return fullName;
     }
 
-    @Override
-    public String toString() {
-        return uuid;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -47,12 +42,23 @@ public class Resume {
 
         Resume resume = (Resume) o;
 
-        return uuid.equals(resume.uuid);
+        if (uuid != null ? !uuid.equals(resume.uuid) : resume.uuid != null) return false;
+        return fullName != null ? fullName.equals(resume.fullName) : resume.fullName == null;
     }
 
     @Override
     public int hashCode() {
-        return uuid.hashCode();
+        int result = uuid != null ? uuid.hashCode() : 0;
+        result = 31 * result + (fullName != null ? fullName.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Resume{" +
+                "uuid='" + uuid + '\'' +
+                ", fullName='" + fullName + '\'' +
+                '}';
     }
 
     public static class ResumeUuidComparator implements Comparator<Resume> {
@@ -61,6 +67,7 @@ public class Resume {
             return o1.getUuid().compareTo(o2.getUuid());
         }
     }
+
     public static class ResumeFullNameComparator implements Comparator<Resume> {
         @Override
         public int compare(Resume o1, Resume o2) {

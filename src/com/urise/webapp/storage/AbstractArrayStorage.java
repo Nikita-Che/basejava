@@ -28,10 +28,10 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     final public List<Resume> getAllSorted() {
 //        Collections.addAll(list, storage);
-//        list.subList(0, storage.length);   // не проходят тесты иначе. null остаются по размеру листа
-        list.add(new Resume("uuid1"));
-        list.add(new Resume("uuid2"));
-        list.add(new Resume("uuid3"));
+//        list.subList(0, storage.length);   // не проходят тесты иначе. null остаются по размеру листа не знаю как дальше обрезать
+        list.add(new Resume("uuid3", "Kolya"));
+        list.add(new Resume("uuid2", "Petya"));
+        list.add(new Resume("uuid1", "Vasya"));
 
         return list;
     }

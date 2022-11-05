@@ -4,10 +4,8 @@ import com.urise.webapp.model.Resume;
 
 import java.util.*;
 
-// TODO: 03.11.2022 implement 
-// TODO: 03.11.2022 create new MapStorage with searchkey not uuid 
-public class MapStorage extends AbstractStorage {
-    private final Map<String, Resume> storage = new HashMap<>();
+public class TreeMapStorage extends AbstractStorage {
+    private final Map<String, Resume> storage = new TreeMap<>();
 
     @Override
     public int size() {
@@ -21,7 +19,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     public List<Resume> getAllSorted() {
-        List<String>  list = new ArrayList<>(storage.keySet());
+        List<String> list = new ArrayList<>(storage.keySet());
         List<Resume> list1 = new ArrayList<>();
         for (String s : list) {
             list1.add(new Resume(s));
@@ -52,7 +50,8 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected Object getSearchKey(String uuid) {
-        return uuid;
+        String value = String.valueOf(storage.get(uuid));
+        return value;
     }
 
     @Override

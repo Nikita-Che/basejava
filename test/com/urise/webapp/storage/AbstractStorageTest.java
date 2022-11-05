@@ -29,12 +29,16 @@ public abstract class AbstractStorageTest {
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
     private static final String UUID_4 = "uuid4";
+    private static final String FULL_NAME1 = "Vasya";
+    private static final String FULL_NAME2 = "Petya";
+    private static final String FULL_NAME3 = "Kolya";
+    private static final String FULL_NAME4 = "Grisha";
     private static final String UUID_NOT_EXIST = "dummy";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
-    private static final Resume RESUME_2 = new Resume(UUID_2);
-    private static final Resume RESUME_3 = new Resume(UUID_3);
-    private static final Resume RESUME_4 = new Resume(UUID_4);
-    private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST);
+    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME1);
+    private static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME2);
+    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME3);
+    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME4);
+    private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST, FULL_NAME1);
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -90,6 +94,7 @@ public abstract class AbstractStorageTest {
     @Test
     public void getAll() throws Exception {
         List<Resume> expected = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+        expected.sort(Resume.comparator);
         assertSize(3);
         assertEquals(expected, storage.getAllSorted());
     }
