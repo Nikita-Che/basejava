@@ -5,6 +5,7 @@ import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,21 +27,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    final public List<Resume> getAllSorted() {
-//        Collections.addAll(list, storage);
-//        list.subList(0, storage.length);   // не проходят тесты иначе. null остаются по размеру листа не знаю как дальше обрезать
-        list.add(new Resume("uuid3", "Kolya"));
-        list.add(new Resume("uuid2", "Petya"));
-        list.add(new Resume("uuid1", "Vasya"));
-
+    @Override
+    protected List<Resume> getListOfAllResumeInStorage() {
+        Collections.addAll(list, storage);
         return list;
     }
-//
-//    @Override
-//    public List<Resume> getAllSorted() {
-//        Collections.addAll(list, storage);
-//        return null;
-//    }
 
     @Override
     protected Resume doGet(Object searchKey) {
