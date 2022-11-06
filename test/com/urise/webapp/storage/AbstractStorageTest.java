@@ -13,18 +13,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//@RunWith(Suite.class)
-//@Suite.SuiteClasses(
-//        {
-//        ArrayStorageTest.class,
-//        SortedArrayStorageTest.class,
-//        ListStorageTest.class,
-//        MapUuidStorageTest.class,
-//        MapResumeStorageTest.class,
-//         })
-// public class allTests{
-//}
-
 public abstract class AbstractStorageTest {
     private final Storage storage;
 

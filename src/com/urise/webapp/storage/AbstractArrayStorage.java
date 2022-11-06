@@ -5,7 +5,6 @@ import com.urise.webapp.model.Resume;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,7 +28,8 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> getListOfAllResumeInStorage() {
-        Collections.addAll(list, storage);
+        list = Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+//        Collections.addAll(list, storage);
         return list;
     }
 
