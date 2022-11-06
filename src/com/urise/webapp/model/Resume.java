@@ -1,6 +1,6 @@
 package com.urise.webapp.model;
 
-import java.util.Comparator;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -9,9 +9,8 @@ import java.util.UUID;
 public class Resume {
 
     // Unique identifier
-    private final String uuid;
+    private String uuid;
     private String fullName;
-    public static Comparator<Resume> comparator = new Resume.ResumeFullNameComparator().thenComparing(new Resume.ResumeUuidComparator());
 
     public Resume(String uuid, String fullName) {
         this.uuid = uuid;
@@ -22,8 +21,8 @@ public class Resume {
         this(UUID.randomUUID().toString());
     }
 
-    public Resume(String uuid) {
-        this.uuid = uuid;
+    public Resume(String fullName) {
+        new Resume(this.getUuid(), fullName);
     }
 
     public String getUuid() {
@@ -34,7 +33,6 @@ public class Resume {
         return fullName;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,8 +40,8 @@ public class Resume {
 
         Resume resume = (Resume) o;
 
-        if (uuid != null ? !uuid.equals(resume.uuid) : resume.uuid != null) return false;
-        return fullName != null ? fullName.equals(resume.fullName) : resume.fullName == null;
+        if (!Objects.equals(uuid, resume.uuid)) return false;
+        return Objects.equals(fullName, resume.fullName);
     }
 
     @Override
@@ -59,19 +57,5 @@ public class Resume {
                 "uuid='" + uuid + '\'' +
                 ", fullName='" + fullName + '\'' +
                 '}';
-    }
-
-    public static class ResumeUuidComparator implements Comparator<Resume> {
-        @Override
-        public int compare(Resume o1, Resume o2) {
-            return o1.getUuid().compareTo(o2.getUuid());
-        }
-    }
-
-    public static class ResumeFullNameComparator implements Comparator<Resume> {
-        @Override
-        public int compare(Resume o1, Resume o2) {
-            return o1.getFullName().compareTo(o2.getFullName());
-        }
     }
 }
