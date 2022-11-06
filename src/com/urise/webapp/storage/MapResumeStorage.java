@@ -47,12 +47,12 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     public void clear() {
-
+        storage.clear();
     }
 
     @Override
     public int size() {
-        return 0;
+        return storage.size();
     }
 }
 
