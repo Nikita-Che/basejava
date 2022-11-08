@@ -21,34 +21,29 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> doGetAll() {
-        //        List list = (List) storage.keySet();
-//        List<Resume> resumes = null;
-//        for (Object o : list) {
-//            resumes.add((Resume) o);
-//        }
-//        return null;
+    protected List<Resume> doCopyAll() {
+        //  map.values Returns a Collection view of the values contained in this map
         return new ArrayList<>(storage.values());
     }
 
     @Override
-    protected Resume doGet(Object searchKey) {
-        return storage.get((String) searchKey);
+    protected Resume doGet(Object uuid) {
+        return storage.get((String) uuid);
     }
 
     @Override
-    protected void doUpdate(Resume resume, Object searchKey) {
-        storage.put((String) searchKey, resume);
+    protected void doUpdate(Resume resume, Object uuid) {
+        storage.put((String) uuid, resume);
     }
 
     @Override
-    protected void doSave(Resume resume, Object searchKey) {
-        storage.put((String) searchKey, resume);
+    protected void doSave(Resume resume, Object uuid) {
+        storage.put((String) uuid, resume);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
-        storage.remove((String) searchKey);
+    protected void doDelete(Object uuid) {
+        storage.remove((String) uuid);
     }
 
     @Override
@@ -57,8 +52,8 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return storage.containsKey((String) searchKey);
+    protected boolean isExist(Object uuid) {
+        return storage.containsKey((String) uuid);
     }
 }
 
