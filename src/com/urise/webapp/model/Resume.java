@@ -12,6 +12,7 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private final String fullName;
+    // TODO: 08.11.2022 надо добавлять сюда начинать все по ДЗ
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
