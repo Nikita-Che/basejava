@@ -21,7 +21,7 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> getListOfAllResumeInStorage() {
+    protected List<Resume> doGetAll() {
         //        List list = (List) storage.keySet();
 //        List<Resume> resumes = null;
 //        for (Object o : list) {
