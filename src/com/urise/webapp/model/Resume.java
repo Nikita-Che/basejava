@@ -1,5 +1,7 @@
 package com.urise.webapp.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -12,6 +14,23 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private final String fullName;
+    private TextSection textSection;
+
+    public void printAll() {
+        List<String> list = new ArrayList<>();
+        list.add(uuid);
+        list.add(fullName);
+        list.add(String.valueOf(textSection));
+        System.out.println(list);
+    }
+
+    public TextSection getTextSection() {
+        return textSection;
+    }
+
+    public void setTextSection(TextSection textSection) {
+        this.textSection = textSection;
+    }
     // TODO: 08.11.2022 надо добавлять сюда начинать все по ДЗ
 
     public Resume(String fullName) {
