@@ -13,6 +13,7 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private final String fullName;
+
     List<Section> section;
 
     public List<Section> getSection() {
@@ -23,15 +24,16 @@ public class Resume {
         this.section = section;
     }
 
-    public Resume(String fullName) {
-        this(UUID.randomUUID().toString(), fullName);
+    public Resume(String fullName, List<Section> section) {
+        this(UUID.randomUUID().toString(), fullName, section);
     }
 
-    public Resume(String uuid, String fullName) {
+    public Resume(String uuid, String fullName, List<Section> section) {
         Objects.requireNonNull(uuid, "uuid must not be null");
         Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
+        this.section = section;
     }
 
     public String getUuid() {

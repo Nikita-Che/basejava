@@ -10,11 +10,10 @@ import java.util.List;
 
 public class ResumeTestData {
     public static void main(String[] args) {
-        Resume resume = new Resume("uuid1", "vaysa");
         List<Section> sections = new ArrayList<>();
         sections.add(new TextSection("дохуя умный", "дохуя квалифицированный"));
         sections.add(new ContactsSection("8950132", "vozle zabora"));
-        resume.setSection(sections);
+        Resume resume = new Resume("uuid1", "vaysa",sections);
 
         System.out.println(resume);
     }

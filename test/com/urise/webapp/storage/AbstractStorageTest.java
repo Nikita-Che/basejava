@@ -25,11 +25,11 @@ public abstract class AbstractStorageTest {
     private static final String FULL_NAME3 = "Kolya";
     private static final String FULL_NAME4 = "Grisha";
     private static final String UUID_NOT_EXIST = "dummy";
-    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME1);
-    private static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME2);
-    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME3);
-    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME4);
-    private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST, FULL_NAME1);
+    private static final Resume RESUME_1 = new Resume(UUID_1, FULL_NAME1,new ArrayList<>());
+    private static final Resume RESUME_2 = new Resume(UUID_2, FULL_NAME2,new ArrayList<>());
+    private static final Resume RESUME_3 = new Resume(UUID_3, FULL_NAME3,new ArrayList<>());
+    private static final Resume RESUME_4 = new Resume(UUID_4, FULL_NAME4,new ArrayList<>());
+    private static final Resume RESUME_5 = new Resume(UUID_NOT_EXIST, FULL_NAME1,new ArrayList<>());
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;

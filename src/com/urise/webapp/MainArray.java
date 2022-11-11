@@ -6,6 +6,7 @@ import com.urise.webapp.storage.ArrayStorage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,12 +38,12 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume(param);
+                    r = new Resume(param,new ArrayList<>());
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "update":
-                    r = new Resume(param);
+                    r = new Resume(param,new ArrayList<>());
                     ARRAY_STORAGE.update(r);
                     printAll();
                     break;

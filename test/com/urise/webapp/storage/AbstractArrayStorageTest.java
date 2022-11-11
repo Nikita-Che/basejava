@@ -5,6 +5,8 @@ import com.urise.webapp.model.Resume;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
@@ -19,13 +21,13 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     public void saveOverFlow() throws Exception {
         try {
             for (int i = storage.size(); i < STORAGE_LIMIT; i++) {
-                storage.save(new Resume("Vasya"));
+                storage.save(new Resume("Vasya",new ArrayList<>()));
             }
         } catch (StorageException e) {
             Assertions.fail("переполнение произошло раньше времени");
         }
         Assertions.assertThrows(StorageException.class, () -> {
-            storage.save(new Resume("переполнено", "fullName"));
+            storage.save(new Resume("переполнено", "fullName",new ArrayList<>()));
         });
     }
 }

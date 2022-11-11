@@ -5,10 +5,11 @@ import com.urise.webapp.model.Resume;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 public class MainReflection {
     public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException {
-        Resume resume = new Resume("Vasya");
+        Resume resume = new Resume("Vasya",new ArrayList<>());
         Field field = resume.getClass().getDeclaredFields()[0];
         field.setAccessible(true);  // возможность получать прайват поля и изменять его
         System.out.println(field.getName());
