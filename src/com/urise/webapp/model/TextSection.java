@@ -1,6 +1,6 @@
 package com.urise.webapp.model;
 
-public class TextSection {
+public class TextSection extends Section{
     String  achievement;
     String  qualifications;
 
@@ -25,4 +25,11 @@ public class TextSection {
         this.qualifications = qualifications;
     }
 
+    @Override
+    public String toString() {
+        return "TextSection{" +
+                "achievement='" + achievement + '\'' +
+                ", qualifications='" + qualifications + '\'' +
+                '}';
+    }
 }
