@@ -1,6 +1,6 @@
 package com.urise.webapp.model;
 
-public class ContactsSection extends Section{
+public class ContactsSection extends AbstractSection{
     String phone;
     String adress;
 

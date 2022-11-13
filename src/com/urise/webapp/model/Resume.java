@@ -9,30 +9,13 @@ import java.util.UUID;
  * Initial resume class
  */
 public class Resume {
-//        implements Comparable<Resume{
-
+    //        implements Comparable<Resume{
     // Unique identifier
     private final String uuid;
     private final String fullName;
 
-    public List<String> getContacts() {
-        return contacts;
-    }
-
-    public void setContacts(List<String> contacts) {
-        this.contacts = contacts;
-    }
-
-    public Map<SectionType, Section> getSections() {
-        return sections;
-    }
-
-    public void setSections(Map<SectionType, Section> sections) {
-        this.sections = sections;
-    }
-
     List<String> contacts;
-    Map<SectionType, Section> sections;
+    Map<SectionType, AbstractSection> sections;
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
