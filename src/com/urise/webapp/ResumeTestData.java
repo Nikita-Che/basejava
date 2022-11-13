@@ -15,9 +15,6 @@ public class ResumeTestData {
         Resume resume = new Resume("uuid1", "vaysa");
 
         Map<SectionType, Sections> sectionsMap = new HashMap<>();
-        TextSection textSection = new TextSection();
-        textSection.setString("Her");
-        sectionsMap.put(SectionType.PERSONAL,textSection);
 
         List<String> contacts = new ArrayList<>();
         contacts.add("8950050");

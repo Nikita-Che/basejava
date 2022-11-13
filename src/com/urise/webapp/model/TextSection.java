@@ -1,16 +1,20 @@
 package com.urise.webapp.model;
 
 public class TextSection extends Sections {
-    String string;
+    String textSection;
 
-    public void setString(String string) {
-        this.string = string;
+    public TextSection(ContactsSection contactsSection, TextSection textSection) {
+        super(contactsSection, textSection);
+    }
+
+    public void setTextSection(String textSection) {
+        this.textSection = textSection;
     }
 
     @Override
     public String toString() {
         return "TextSection{" +
-                "string='" + string + '\'' +
+                "string='" + textSection + '\'' +
                 '}';
     }
 }
