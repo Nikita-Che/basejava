@@ -1,6 +1,7 @@
 package com.urise.webapp.model;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -14,26 +15,34 @@ public class Resume {
     private final String uuid;
     private final String fullName;
 
-    List<Section> section;
-
-    public List<Section> getSection() {
-        return section;
+    public List<String> getContacts() {
+        return contacts;
     }
 
-    public void setSection(List<Section> section) {
-        this.section = section;
+    public void setContacts(List<String> contacts) {
+        this.contacts = contacts;
     }
 
-    public Resume(String fullName, List<Section> section) {
-        this(UUID.randomUUID().toString(), fullName, section);
+    public Map<SectionType, Section> getSections() {
+        return sections;
     }
 
-    public Resume(String uuid, String fullName, List<Section> section) {
+    public void setSections(Map<SectionType, Section> sections) {
+        this.sections = sections;
+    }
+
+    List<String> contacts;
+    Map<SectionType, Section> sections;
+
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
+    }
+
+    public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid, "uuid must not be null");
         Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
-        this.section = section;
     }
 
     public String getUuid() {
@@ -67,7 +76,8 @@ public class Resume {
         return "Resume{" +
                 "uuid='" + uuid + '\'' +
                 ", fullName='" + fullName + '\'' +
-                ", section=" + section +
+                ", contacts=" + contacts +
+                ", sections=" + sections +
                 '}';
     }
 
