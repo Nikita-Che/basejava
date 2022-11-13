@@ -15,7 +15,15 @@ public class Resume {
     private final String fullName;
 
     List<String> contacts;
-    Map<SectionType, AbstractSection> sections;
+    Map<SectionType, Sections> sections;
+
+    public void setContacts(List<String> contacts) {
+        this.contacts = contacts;
+    }
+
+    public void setSections(Map<SectionType, Sections> sections) {
+        this.sections = sections;
+    }
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
