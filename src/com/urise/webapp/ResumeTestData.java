@@ -48,16 +48,15 @@ public class ResumeTestData {
         qua.setTextDescription(qualify);
         sectionsWorker.put(SectionType.QUALIFICATIONS, qua);
 
-        TextSection edu = new TextSection();
-        List<String> education = new ArrayList<>();
-        education.add("образование");
-        edu.setTextDescription(education);
+        OrganizationSection edu = new OrganizationSection();
+        edu.setNameOfuniversity("Универ");
+        edu.setCource("4");
         sectionsWorker.put(SectionType.EDUCATION, edu);
 
-        TextSection ex = new TextSection();
-        List<String> exp = new ArrayList<>();
-        exp.add("опыт работы");
-        ex.setTextDescription(exp);
+        OrganizationSection ex = new OrganizationSection();
+        ex.setNameOfOrganiation("РаботаРадиРаботы");
+        ex.setPossition("Работник");
+        ex.setResponsibilities("РаботатьРадиРаботы");
         sectionsWorker.put(SectionType.EXPERIENCE, ex);
 
 
