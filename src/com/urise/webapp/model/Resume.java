@@ -1,6 +1,5 @@
 package com.urise.webapp.model;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
@@ -14,10 +13,18 @@ public class Resume {
     private final String uuid;
     private final String fullName;
 
-    List<String> contacts;
+    Map<ContactsType, String> contacts;
     Map<SectionType, Sections> sections;
 
-    public void setContacts(List<String> contacts) {
+    public Map<ContactsType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, Sections> getSections() {
+        return sections;
+    }
+
+    public void setContacts(Map<ContactsType, String> contacts) {
         this.contacts = contacts;
     }
 
@@ -72,7 +79,7 @@ public class Resume {
                 '}';
     }
 
-    //    @Override
+//    @Override
 //    public int compareTo(Resume o) {
 //        int cmp = fullName.compareTo(o.fullName);
 //        return cmp!=0? cmp:uuid.compareTo(o.uuid);

@@ -9,19 +9,60 @@ import java.util.Map;
 
 public class ResumeTestData {
     public static void main(String[] args) {
-//        List<Section> sections = new ArrayList<>();
-//        sections.add(new TextSection("дохуя умный", "дохуя квалифицированный"));
-//        sections.add(new ContactsSection("8950132", "vozle zabora"));
+
         Resume resume = new Resume("uuid1", "vaysa");
 
-        Map<SectionType, Sections> sectionsMap = new HashMap<>();
+        Map<ContactsType, String> contacts = new HashMap<>();
+        contacts.put(ContactsType.TELEPHONE, "89505096");
+        contacts.put(ContactsType.EMAIL, "vasya@vasya");
+        contacts.put(ContactsType.HOMEPAGE, "vasya.ru");
+        contacts.put(ContactsType.SKYPE, "vasilisk");
+        contacts.put(ContactsType.GITHUBPROFILE, "vasyaGihub");
+        contacts.put(ContactsType.LINKEINPROFILE, "VasyaLinkedin");
+        contacts.put(ContactsType.STACKOVEGLOWPROFILE, "Vasya Stack");
 
-        List<String> contacts = new ArrayList<>();
-        contacts.add("8950050");
-        contacts.add("Givet v korobke");
+        Map<SectionType, Sections> sectionsWorker = new HashMap<>();
 
-        resume.setSections(sectionsMap);
+        TextSection pers = new TextSection();
+        List<String> personal = new ArrayList<>();
+        personal.add("персональные качества");
+        pers.setTextDescription(personal);
+        sectionsWorker.put(SectionType.PERSONAL, pers);
+
+        TextSection obj = new TextSection();
+        List<String> objective = new ArrayList<>();
+        objective.add("позиция");
+        obj.setTextDescription(objective);
+        sectionsWorker.put(SectionType.OBJECTIVE, obj);
+
+
+        TextSection ach = new TextSection();
+        List<String> achivement = new ArrayList<>();
+        achivement.add("достижения");
+        ach.setTextDescription(achivement);
+        sectionsWorker.put(SectionType.ACHIEVEMENT, ach);
+
+        TextSection qua = new TextSection();
+        List<String> qualify = new ArrayList<>();
+        qualify.add("квалификация");
+        qua.setTextDescription(qualify);
+        sectionsWorker.put(SectionType.QUALIFICATIONS, qua);
+
+        TextSection edu = new TextSection();
+        List<String> education = new ArrayList<>();
+        education.add("образование");
+        edu.setTextDescription(education);
+        sectionsWorker.put(SectionType.EDUCATION, edu);
+
+        TextSection ex = new TextSection();
+        List<String> exp = new ArrayList<>();
+        exp.add("опыт работы");
+        ex.setTextDescription(exp);
+        sectionsWorker.put(SectionType.EXPERIENCE, ex);
+
+
         resume.setContacts(contacts);
+        resume.setSections(sectionsWorker);
         System.out.println(resume);
     }
 }
