@@ -12,25 +12,8 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private final String fullName;
-
     Map<ContactsType, String> contacts;
-    Map<SectionType, Sections> sections;
-
-    public Map<ContactsType, String> getContacts() {
-        return contacts;
-    }
-
-    public Map<SectionType, Sections> getSections() {
-        return sections;
-    }
-
-    public void setContacts(Map<ContactsType, String> contacts) {
-        this.contacts = contacts;
-    }
-
-    public void setSections(Map<SectionType, Sections> sections) {
-        this.sections = sections;
-    }
+    Map<SectionType, AbstractSection> sections;
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
@@ -49,6 +32,22 @@ public class Resume {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public Map<ContactsType, String> getContacts() {
+        return contacts;
+    }
+
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
+    }
+
+    public void setContacts(Map<ContactsType, String> contacts) {
+        this.contacts = contacts;
+    }
+
+    public void setSections(Map<SectionType, AbstractSection> sections) {
+        this.sections = sections;
     }
 
     @Override
