@@ -1,9 +1,9 @@
 package com.urise.webapp.model;
 
 public class AbstractSection {
-    OrganizationSection organizationSection;
-    TextSection textSection;
-    ListSection listSection;
+    private OrganizationSection organizationSection;
+    private TextSection textSection;
+    private ListSection listSection;
 
     public AbstractSection(OrganizationSection organizationSection, TextSection textSection, ListSection listSection) {
         this.organizationSection = organizationSection;

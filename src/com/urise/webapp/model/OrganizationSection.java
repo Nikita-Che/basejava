@@ -3,7 +3,7 @@ package com.urise.webapp.model;
 import java.util.List;
 
 public class OrganizationSection extends AbstractSection {  //EXPERIENCE, EDUCATION
-    List<Organization> organizationList;
+    private final List<Organization> organizationList;
 
     public OrganizationSection(List<Organization> organizationList) {
         this.organizationList = organizationList;
@@ -13,8 +13,19 @@ public class OrganizationSection extends AbstractSection {  //EXPERIENCE, EDUCAT
         return organizationList;
     }
 
-    public void setOrganizationList(List<Organization> organizationList) {
-        this.organizationList = organizationList;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        OrganizationSection that = (OrganizationSection) o;
+
+        return organizationList.equals(that.organizationList);
+    }
+
+    @Override
+    public int hashCode() {
+        return organizationList.hashCode();
     }
 
     @Override

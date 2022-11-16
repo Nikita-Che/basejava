@@ -24,7 +24,6 @@ public class ResumeTestData {
 
         String fullName = "Vasya Vasyin";
         String uuid = "uuid";
-        Resume resume = new Resume(uuid, fullName);
 
         String content = "PERSONAL";
         TextSection personalTextSection = new TextSection(content);
@@ -65,8 +64,7 @@ public class ResumeTestData {
         sectionsWorker.put(SectionType.EXPERIENCE, expOrganizationSection);
         sectionsWorker.put(SectionType.EDUCATION, expOrganizationSection1);
 
-        resume.setContacts(contacts);
-        resume.setSections(sectionsWorker);
+        Resume resume = new Resume(uuid, fullName, contacts, sectionsWorker);
         System.out.println(resume);
     }
 }

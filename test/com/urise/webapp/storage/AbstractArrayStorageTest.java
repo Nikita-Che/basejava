@@ -25,7 +25,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
             Assertions.fail("переполнение произошло раньше времени");
         }
         Assertions.assertThrows(StorageException.class, () -> {
-            storage.save(new Resume("переполнено", "fullName"));
+            storage.save(new Resume("переполнено", "fullName", contacts, sections));
         });
     }
 }
