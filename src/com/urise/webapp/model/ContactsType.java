@@ -9,7 +9,7 @@ public enum ContactsType {
     STACKOVEGLOWPROFILE("СтэковерфлоВ"),
     HOMEPAGE("Домашняя страница");
 
-    private String title;
+    private final String title;
 
     ContactsType(String title) {
         this.title = title;
