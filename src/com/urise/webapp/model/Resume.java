@@ -1,5 +1,6 @@
 package com.urise.webapp.model;
 
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -11,22 +12,18 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private final String fullName;
-    private final Map<ContactsType, String> contacts;
-    private final Map<SectionType, AbstractSection> sections;
+    private final Map<ContactsType, String> contacts = new EnumMap<>(ContactsType.class);
+    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
 //    public Resume(String fullName) {
 //        this(UUID.randomUUID().toString(), fullName, contacts, sections);
 //    }
 
-    public Resume(String uuid, String fullName, Map<ContactsType, String> contacts, Map<SectionType, AbstractSection> sections) {
+    public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid, "uuid must not be null");
         Objects.requireNonNull(fullName, "fullName must not be null");
-        Objects.requireNonNull(contacts, "fullName must not be null");
-        Objects.requireNonNull(sections, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
-        this.contacts = contacts;
-        this.sections = sections;
     }
 
     public String getUuid() {
@@ -37,12 +34,12 @@ public class Resume {
         return fullName;
     }
 
-    public Map<ContactsType, String> getContacts() {
-        return contacts;
+    public String getContact(ContactsType type) {
+        return contacts.get(type);
     }
 
-    public Map<SectionType, AbstractSection> getSections() {
-        return sections;
+    public AbstractSection getSection(SectionType type) {
+        return sections.get(type);
     }
 
 //    public void setContacts(Map<ContactsType, String> contacts) {

@@ -14,13 +14,15 @@ public class ResumeTestData {
     public static void main(String[] args) throws MalformedURLException {
 
         Map<ContactsType, String> contacts = new HashMap<>();
-        contacts.put(ContactsType.TELEPHONE, "89505096");
+        contacts.put(ContactsType.PHONE, "89505096");
+        contacts.put(ContactsType.MOBILE, "123");
+        contacts.put(ContactsType.HOME_PHONE, "321");
         contacts.put(ContactsType.EMAIL, "vasya@vasya");
-        contacts.put(ContactsType.HOMEPAGE, "vasya.ru");
+        contacts.put(ContactsType.HOME_PAGE, "vasya.ru");
         contacts.put(ContactsType.SKYPE, "vasilisk");
-        contacts.put(ContactsType.GITHUBPROFILE, "vasyaGihub");
-        contacts.put(ContactsType.LINKEINPROFILE, "VasyaLinkedin");
-        contacts.put(ContactsType.STACKOVEGLOWPROFILE, "Vasya Stack");
+        contacts.put(ContactsType.GITHUB, "vasyaGihub");
+        contacts.put(ContactsType.LINKEIN, "VasyaLinkedin");
+        contacts.put(ContactsType.STACKOVEFLOW, "Vasya Stack");
 
         String fullName = "Vasya Vasyin";
         String uuid = "uuid";

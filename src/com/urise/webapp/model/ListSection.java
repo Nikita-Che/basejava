@@ -1,16 +1,18 @@
 package com.urise.webapp.model;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ListSection extends AbstractSection { //ACHIEVEMENT, QUALIFICATIONS,
-    private final List<String> strings;
+    private final List<String> items;
 
-    public ListSection(List<String> strings) {
-        this.strings = strings;
+    public ListSection(List<String> items) {
+        Objects.requireNonNull(items, "items must not be null");
+        this.items = items;
     }
 
-    public List<String> getStrings() {
-        return strings;
+    public List<String> getItems() {
+        return items;
     }
 
     @Override
@@ -20,18 +22,18 @@ public class ListSection extends AbstractSection { //ACHIEVEMENT, QUALIFICATIONS
 
         ListSection that = (ListSection) o;
 
-        return strings.equals(that.strings);
+        return items.equals(that.items);
     }
 
     @Override
     public int hashCode() {
-        return strings.hashCode();
+        return items.hashCode();
     }
 
     @Override
     public String toString() {
         return "ListSection{" +
-                "strings=" + strings +
+                "strings=" + items +
                 '}';
     }
 }
