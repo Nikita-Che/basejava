@@ -37,12 +37,12 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume(param);
+                    r = new Resume(param, "fullName");
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "update":
-                    r = new Resume(param);
+                    r = new Resume(param, "fullName");
                     ARRAY_STORAGE.update(r);
                     printAll();
                     break;

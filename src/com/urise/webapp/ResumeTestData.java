@@ -66,7 +66,7 @@ public class ResumeTestData {
         sectionsWorker.put(SectionType.EXPERIENCE, expOrganizationSection);
         sectionsWorker.put(SectionType.EDUCATION, expOrganizationSection1);
 
-        Resume resume = new Resume(uuid, fullName, contacts, sectionsWorker);
+        Resume resume = new Resume(uuid, fullName);
         System.out.println(resume);
     }
 }
