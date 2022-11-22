@@ -3,6 +3,7 @@ package com.urise.webapp.model;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Initial resume class
@@ -12,12 +13,12 @@ public class Resume {
     // Unique identifier
     private final String uuid;
     private final String fullName;
-    private final Map<ContactsType, String> contacts = new EnumMap<>(ContactsType.class);
-    private final Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
+    public Map<ContactsType, String> contacts = new EnumMap<>(ContactsType.class);
+    public Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
 
-//    public Resume(String fullName) {
-//        this(UUID.randomUUID().toString(), fullName, contacts, sections);
-//    }
+    public Resume(String fullName) {
+        this(UUID.randomUUID().toString(), fullName);
+    }
 
     public Resume(String uuid, String fullName) {
         Objects.requireNonNull(uuid, "uuid must not be null");
@@ -42,13 +43,13 @@ public class Resume {
         return sections.get(type);
     }
 
-//    public void setContacts(Map<ContactsType, String> contacts) {
-//        this.contacts = contacts;
-//    }
-//
-//    public void setSections(Map<SectionType, AbstractSection> sections) {
-//        this.sections = sections;
-//    }
+    public void setContacts(Map<ContactsType, String> contacts) {
+        this.contacts = contacts;
+    }
+
+    public void setSections(Map<SectionType, AbstractSection> sections) {
+        this.sections = sections;
+    }
 
     @Override
     public boolean equals(Object o) {

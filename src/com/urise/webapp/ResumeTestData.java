@@ -5,13 +5,14 @@ import com.urise.webapp.model.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ResumeTestData {
     public static void main(String[] args) throws MalformedURLException {
+        createResume("UUID", "FullName");
+    }
+
+    public static void createResume(String uuid, String fullName) {
 
         Map<ContactsType, String> contacts = new HashMap<>();
         contacts.put(ContactsType.PHONE, "89505096");
@@ -23,9 +24,6 @@ public class ResumeTestData {
         contacts.put(ContactsType.GITHUB, "vasyaGihub");
         contacts.put(ContactsType.LINKEIN, "VasyaLinkedin");
         contacts.put(ContactsType.STACKOVEFLOW, "Vasya Stack");
-
-        String fullName = "Vasya Vasyin";
-        String uuid = "uuid";
 
         String content = "PERSONAL";
         TextSection personalTextSection = new TextSection(content);
@@ -48,7 +46,12 @@ public class ResumeTestData {
         periodList.add(period);
         periodList.add(period1);
         String url = "https://github.com/Nikita-Che";
-        URL web = new URL(url);
+        URL web = null;
+        try {
+            web = new URL(url);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
         Organization organization = new Organization("organization", web, periodList);
         Organization organization1 = new Organization("organization1", web, periodList);
         List<Organization> organizationList = new ArrayList<>();
@@ -58,7 +61,7 @@ public class ResumeTestData {
 
         OrganizationSection expOrganizationSection1 = new OrganizationSection(organizationList);
 
-        Map<SectionType, AbstractSection> sectionsWorker = new HashMap<>();
+        Map<SectionType, AbstractSection> sectionsWorker = new EnumMap<SectionType, AbstractSection>(SectionType.class);
         sectionsWorker.put(SectionType.PERSONAL, personalTextSection);
         sectionsWorker.put(SectionType.OBJECTIVE, objectiveTextSection);
         sectionsWorker.put(SectionType.ACHIEVEMENT, achivementlistSection);
@@ -67,6 +70,8 @@ public class ResumeTestData {
         sectionsWorker.put(SectionType.EDUCATION, expOrganizationSection1);
 
         Resume resume = new Resume(uuid, fullName);
+        resume.sections = sectionsWorker;
+        resume.contacts = contacts;
         System.out.println(resume);
     }
 }
