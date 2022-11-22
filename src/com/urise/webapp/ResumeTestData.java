@@ -12,7 +12,7 @@ public class ResumeTestData {
         createResume("UUID", "FullName");
     }
 
-    public static void createResume(String uuid, String fullName) {
+    public static Resume createResume(String uuid, String fullName) {
 
         Map<ContactsType, String> contacts = new HashMap<>();
         contacts.put(ContactsType.PHONE, "89505096");
@@ -73,5 +73,7 @@ public class ResumeTestData {
         resume.sections = sectionsWorker;
         resume.contacts = contacts;
         System.out.println(resume);
+
+        return resume;
     }
 }
