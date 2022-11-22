@@ -26,5 +26,26 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+//Сделайте рекурсивный обход и вывод имени файлов в каталогах и подкаталогах (корневой каталог- ваш проект)
+        String path = "C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\src";
+        list(path);
+    }
+
+    static void list(String path) {
+        File dir = new File(path);
+        String[] sDirList = dir.list();
+        int i;
+        for (i = 0; i < sDirList.length; i++) {
+            File f1 = new File(path +
+                    File.separator + sDirList[i]);
+            if (f1.isFile())
+                System.out.println(path +
+                        File.separator + sDirList[i]);
+            else {
+                list(path +
+                        File.separator + sDirList[i]);
+            }
+        }
     }
 }
