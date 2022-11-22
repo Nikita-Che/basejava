@@ -25,9 +25,8 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected Resume doGet(File file) {
-        doRead(file);
-        //вернуть резуме
-        return null;
+        Resume resume = doRead(file);
+        return resume;
     }
 
     protected abstract Resume doRead(File file);
