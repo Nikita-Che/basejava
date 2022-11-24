@@ -13,4 +13,5 @@ import org.junit.platform.suite.api.Suite;
                 MapResumeStorageTest.class,
         })
 public class AllStorageTests {
+
 }
