@@ -28,8 +28,10 @@ public class MainFile {
         }
 
 //Сделайте рекурсивный обход и вывод имени файлов в каталогах и подкаталогах (корневой каталог- ваш проект)
-        String path = "C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\src";
-        list(path);
+//        String path = "C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\src";
+//        list(path);
+
+        print(dir);
     }
 
     static void list(String path) {
@@ -45,6 +47,21 @@ public class MainFile {
             else {
                 list(path +
                         File.separator + sDirList[i]);
+            }
+        }
+    }
+
+    public static void print(File dir) {
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    System.out.println("File: " + file.getName());
+                } else if (file.isDirectory()) {
+                    System.out.println();
+                    System.out.println("Directory: " + file.getName());
+                    print(file);
+                }
             }
         }
     }
