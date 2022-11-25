@@ -34,7 +34,7 @@ public class MainFile {
         print(dir);
     }
 
-    static void list(String path) {
+    public static void list(String path) {
         File dir = new File(path);
         String[] sDirList = dir.list();
         int i;
@@ -56,7 +56,7 @@ public class MainFile {
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    System.out.println("File: " + file.getName());
+                    System.out.println("File:     " + file.getName());
                 } else if (file.isDirectory()) {
                     System.out.println();
                     System.out.println("Directory: " + file.getName());

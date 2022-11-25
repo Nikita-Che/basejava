@@ -40,9 +40,9 @@ public class ResumeTestData {
 
         LocalDate startDate = LocalDate.of(2005, 11, 12);
         LocalDate endDate = LocalDate.of(2005, 11, 15);
-        Period period = new Period("title", "description", startDate, endDate);
-        Period period1 = new Period("title1", "description1", startDate, endDate);
-        List<Period> periodList = new ArrayList<>();
+        Organization.Period period = new Organization.Period("title", "description", startDate, endDate);
+        Organization.Period period1 = new Organization.Period("title1", "description1", startDate, endDate);
+        List<Organization.Period> periodList = new ArrayList<>();
         periodList.add(period);
         periodList.add(period1);
         String url = "https://github.com/Nikita-Che";
@@ -70,8 +70,10 @@ public class ResumeTestData {
         sectionsWorker.put(SectionType.EDUCATION, expOrganizationSection1);
 
         Resume resume = new Resume(uuid, fullName);
-        resume.sections = sectionsWorker;
-        resume.contacts = contacts;
+        resume.addSections(sectionsWorker);
+//        resume.sections = sectionsWorker;
+        resume.addContacts(contacts);
+//        resume.contacts = contacts;
         System.out.println(resume);
 
         return resume;

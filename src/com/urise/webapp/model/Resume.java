@@ -43,11 +43,11 @@ public class Resume {
         return sections.get(type);
     }
 
-    public void setContacts(Map<ContactType, String> contacts) {
+    public void addContacts(Map<ContactType, String> contacts) {
         this.contacts = contacts;
     }
 
-    public void setSections(Map<SectionType, AbstractSection> sections) {
+    public void addSections(Map<SectionType, AbstractSection> sections) {
         this.sections = sections;
     }
 
