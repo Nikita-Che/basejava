@@ -74,7 +74,7 @@ public class ResumeTestData {
 //        resume.sections = sectionsWorker;
         resume.addContacts(contacts);
 //        resume.contacts = contacts;
-        System.out.println(resume);
+//        System.out.println(resume);
 
         return resume;
     }

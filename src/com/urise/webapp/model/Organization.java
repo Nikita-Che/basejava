@@ -1,11 +1,16 @@
 package com.urise.webapp.model;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-public class Organization {
+public class Organization implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+
     private final String name;
     private final URL website;
     private final List<Period> periods;
@@ -55,7 +60,10 @@ public class Organization {
                 '}';
     }
 
-    public static class Period {
+    public static class Period implements Serializable {
+        @Serial
+        private static final long serialVersionUID = 1L;
+
         private final String title;
         private final String description;
         private final LocalDate startDate;

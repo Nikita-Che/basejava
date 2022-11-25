@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,6 +16,9 @@ import static com.urise.webapp.ResumeTestData.createResume;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractStorageTest {
+    static String path = "C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\storage";
+    protected static final File STORAGE_DIR = new File(path);
+
     private final Storage storage;
 
     private static final String UUID_1 = "uuid1";
