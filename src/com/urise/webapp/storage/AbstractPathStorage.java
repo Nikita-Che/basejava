@@ -64,8 +64,8 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     }
 
     @Override
-    protected boolean isExist(Path Path) {
-        return directory.isAbsolute();
+    protected boolean isExist(Path path) {
+       return Files.isRegularFile(path);
     }
 
     @Override
@@ -93,7 +93,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try {
             Files.list(directory).forEach(this::doDelete);
         } catch (IOException e) {
-            throw new StorageException("pass delete error", null);
+            throw new StorageException("pass delete error", null, e);
         }
     }
 
@@ -103,7 +103,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         try {
             list = Files.list(directory).collect(Collectors.toList());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new StorageException("Directory read Error", null, e);
         }
         return list.size();
     }
