@@ -21,12 +21,12 @@ public class TextSection extends AbstractSection { //PERSONAL, OBJECTIVE
 
         TextSection that = (TextSection) o;
 
-        return Objects.equals(content, that.content);
+        return content.equals(that.content);
     }
 
     @Override
     public int hashCode() {
-        return content != null ? content.hashCode() : 0;
+        return content.hashCode();
     }
 
     @Override

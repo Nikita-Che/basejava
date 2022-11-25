@@ -14,16 +14,16 @@ public class ResumeTestData {
 
     public static Resume createResume(String uuid, String fullName) {
 
-        Map<ContactsType, String> contacts = new HashMap<>();
-        contacts.put(ContactsType.PHONE, "89505096");
-        contacts.put(ContactsType.MOBILE, "123");
-        contacts.put(ContactsType.HOME_PHONE, "321");
-        contacts.put(ContactsType.EMAIL, "vasya@vasya");
-        contacts.put(ContactsType.HOME_PAGE, "vasya.ru");
-        contacts.put(ContactsType.SKYPE, "vasilisk");
-        contacts.put(ContactsType.GITHUB, "vasyaGihub");
-        contacts.put(ContactsType.LINKEIN, "VasyaLinkedin");
-        contacts.put(ContactsType.STACKOVEFLOW, "Vasya Stack");
+        Map<ContactType, String> contacts = new HashMap<>();
+        contacts.put(ContactType.PHONE, "89505096");
+        contacts.put(ContactType.MOBILE, "123");
+        contacts.put(ContactType.HOME_PHONE, "321");
+        contacts.put(ContactType.EMAIL, "vasya@vasya");
+        contacts.put(ContactType.HOME_PAGE, "vasya.ru");
+        contacts.put(ContactType.SKYPE, "vasilisk");
+        contacts.put(ContactType.GITHUB, "vasyaGihub");
+        contacts.put(ContactType.LINKEDIN, "VasyaLinkedin");
+        contacts.put(ContactType.STACKOVERFLOW, "Vasya Stack");
 
         String content = "PERSONAL";
         TextSection personalTextSection = new TextSection(content);

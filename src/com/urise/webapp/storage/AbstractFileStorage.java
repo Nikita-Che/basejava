@@ -25,13 +25,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected Resume doGet(File file) {
-        Resume resume = null;
         try {
-            resume = doRead(file);
+            return doRead(file);
         } catch (IOException e) {
-            throw new StorageException("OI error", file.getName(), e);
+            throw new StorageException("I/O Error", file.getName(), e);
         }
-        return resume;
     }
 
     @Override
@@ -39,7 +37,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             doWrite(resume, file);
         } catch (IOException e) {
-            throw new StorageException("OI error", file.getName(), e);
+            throw new StorageException("I/O Error", file.getName(), e);
         }
     }
 
@@ -49,7 +47,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             file.createNewFile();
             doWrite(resume, file);
         } catch (IOException e) {
-            throw new StorageException("OI error", file.getName(), e);
+            throw new StorageException("I/O Error", file.getName(), e);
         }
     }
 
@@ -81,7 +79,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             try {
                 list.add(doRead(file));
             } catch (IOException e) {
-                throw new StorageException("OI error", file.getName(), e);
+                throw new StorageException("I/O Error", file.getName(), e);
             }
         }
         return list;
@@ -95,7 +93,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             throw new StorageException("files = null", files.toString());
         }
         for (File file : files) {
-            file.delete();
+            doDelete(file);
         }
     }
 
