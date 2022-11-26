@@ -3,8 +3,7 @@ package com.urise.webapp.storage;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,7 +26,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected Resume doGet(Path path) {
         try {
-            return doRead(path);
+            return doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
             throw new StorageException("Path read Error", path.toString());
         }
@@ -36,44 +35,45 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected void doUpdate(Resume resume, Path path) {
         try {
-            doWrite(resume, path);
+            doWrite(resume, new BufferedOutputStream(Files.newOutputStream(path)));
         } catch (IOException e) {
-            throw new StorageException("Could`t create File ", resume.getUuid());
+            throw new StorageException("File write Error ", resume.getUuid());
         }
     }
 
     @Override
     protected void doSave(Resume resume, Path path) {
         try {
-            doWrite(resume, path);
+            Files.createFile(path);
         } catch (IOException e) {
             throw new StorageException("Could`t create File ", resume.getUuid());
         }
+        doUpdate(resume, path);
     }
 
     @Override
     protected void doDelete(Path path) {
-        if (!path.toFile().delete()) {
-            throw new StorageException("Path deleted error ", null);
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            throw new StorageException("Path deleted error ", null, e);
         }
     }
 
     @Override
     protected Path getSearchKey(String uuid) {
-        return new File(String.valueOf(directory)).toPath();
+        return directory.resolve(uuid);
     }
 
     @Override
     protected boolean isExist(Path path) {
-       return Files.isRegularFile(path);
+        return Files.isRegularFile(path);
     }
 
     @Override
     protected List<Resume> doCopyAll() {
+        // TODO: 26.11.2022 не работает
         List<Path> list = null;
-        if (list == null) {
-            throw new StorageException("Directory read Error", null);
-        }
         try {
             list = Files.list(directory).collect(Collectors.toList());
         } catch (IOException e) {
@@ -108,7 +108,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
         return list.size();
     }
 
-    protected abstract Resume doRead(Path path) throws IOException;
+    protected abstract Resume doRead(InputStream is) throws IOException;
 
-    protected abstract void doWrite(Resume resume, Path path) throws IOException;
+    protected abstract void doWrite(Resume resume, OutputStream os) throws IOException;
 }

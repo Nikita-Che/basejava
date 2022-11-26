@@ -16,7 +16,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
-        // TODO: 25.11.2022 Как маркировать директорию чтобы можно было писать и читать?
+        // TODO: 25.11.2022 Как маркировать директорию чтобы можно было писать и читать? не работает в тестах
 //        if (!directory.canRead() || directory.canWrite()) {
 //            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
 //        }
