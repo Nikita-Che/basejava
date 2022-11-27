@@ -4,9 +4,11 @@ import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.io.*;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
     private final File directory;
@@ -70,35 +72,29 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Directory read Error", null);
-        }
-        List<Resume> list = new ArrayList<>();
-        for (File file : files) {
-            list.add(doGet(file));
-        }
-        return list;
+        return getFileList().map(this::doGet).collect(Collectors.toList());
     }
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("files = null", null);
-        }
-        for (File file : files) {
-            doDelete(file);
-        }
+        getFileList().forEach(this::doDelete);
     }
 
     @Override
     public int size() {
-        String[] list = directory.list();
-        if (list == null) {
+        return (int) getFileList().count();
+    }
+
+    private Stream<File> getFileList() {
+        if (Arrays.stream(directory.listFiles()) == null) {
             throw new StorageException("Directory read error", null);
         }
-        return list.length;
+        return Arrays.stream(Objects.requireNonNull(directory.listFiles()));
+//        try {
+//            return Files.list(directory);
+//        } catch (IOException e) {
+//            throw new StorageException("Directory read Error", null, e);
+//        }
     }
 
     protected abstract Resume doRead(InputStream is) throws IOException;
