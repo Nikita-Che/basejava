@@ -2,6 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.strategy.Strategie;
 
 import java.io.*;
 import java.util.Arrays;
@@ -10,25 +11,32 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
     private final File directory;
+    private Strategie strategie;
 
-    protected AbstractFileStorage(File directory) {
+    public void setStrategie(Strategie strategie) {
+        this.strategie = strategie;
+    }
+
+    protected FileStorage(File directory, Strategie strategie) {
         Objects.requireNonNull(directory, "directory must not be null");
+        Objects.requireNonNull(strategie, "strategy must not be null");
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
-        // TODO: 25.11.2022 Как маркировать директорию чтобы можно было писать и читать? не работает в тестах
+//         TODO: 25.11.2022 Как маркировать директорию чтобы можно было писать и читать? не работает в тестах
 //        if (!directory.canRead() || directory.canWrite()) {
 //            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
 //        }
+        this.strategie = strategie;
         this.directory = directory;
     }
 
     @Override
     protected Resume doGet(File file) {
         try {
-            return doRead(new BufferedInputStream(new FileInputStream(file)));
+            return strategie.doRead(new BufferedInputStream(new FileInputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File read Error", file.getName(), e);
         }
@@ -37,7 +45,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doUpdate(Resume resume, File file) {
         try {
-            doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
+            strategie.doWrite(resume, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File write Error", file.getName(), e);
         }
@@ -96,8 +104,4 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 //            throw new StorageException("Directory read Error", null, e);
 //        }
     }
-
-    protected abstract Resume doRead(InputStream is) throws IOException;
-
-    protected abstract void doWrite(Resume resume, OutputStream os) throws IOException;
 }

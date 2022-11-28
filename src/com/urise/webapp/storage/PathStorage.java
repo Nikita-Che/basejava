@@ -2,6 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.strategy.Strategie;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -12,21 +13,28 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public abstract class AbstractPathStorage extends AbstractStorage<Path> {
+public class PathStorage extends AbstractStorage<Path> {
     private final Path directory;
+    private Strategie strategie;
 
-    protected AbstractPathStorage(String dir) {
+    public void setStrategie(Strategie strategie) {
+        this.strategie = strategie;
+    }
+
+    protected PathStorage(String dir, Strategie strategie) {
         directory = Paths.get(dir);
+        Objects.requireNonNull(strategie, "strategy must not be null");
         Objects.requireNonNull(directory, "directory must not be null");
         if (!Files.isDirectory(directory) || !Files.isWritable(directory)) {
             throw new IllegalArgumentException(dir + " is not directory or is not writeble");
         }
+        this.strategie = strategie;
     }
 
     @Override
     protected Resume doGet(Path path) {
         try {
-            return doRead(new BufferedInputStream(Files.newInputStream(path)));
+            return strategie.doRead(new BufferedInputStream(Files.newInputStream(path)));
         } catch (IOException e) {
             throw new StorageException("Path read Error", path.toString());
         }
@@ -35,7 +43,7 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
     @Override
     protected void doUpdate(Resume resume, Path path) {
         try {
-            doWrite(resume, new BufferedOutputStream(Files.newOutputStream(path)));
+            strategie.doWrite(resume, new BufferedOutputStream(Files.newOutputStream(path)));
         } catch (IOException e) {
             throw new StorageException("File write Error ", resume.getUuid());
         }
@@ -92,8 +100,4 @@ public abstract class AbstractPathStorage extends AbstractStorage<Path> {
             throw new StorageException("Directory read Error", null, e);
         }
     }
-
-    protected abstract Resume doRead(InputStream is) throws IOException;
-
-    protected abstract void doWrite(Resume resume, OutputStream os) throws IOException;
 }
