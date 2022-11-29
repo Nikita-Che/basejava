@@ -4,9 +4,12 @@ import java.io.Serial;
 import java.util.Objects;
 
 public class TextSection extends AbstractSection { //PERSONAL, OBJECTIVE
+    public TextSection() {
+    }
+
     @Serial
     private static final long serialVersionUID = 1L;
-    private final String content;
+    private String content;
 
     public TextSection(String content) {
         Objects.requireNonNull(content, "content must not be null");

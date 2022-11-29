@@ -1,5 +1,7 @@
 package com.urise.webapp.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import java.io.Serial;
 import java.io.Serializable;
 import java.net.URL;
@@ -7,13 +9,17 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
+    public Organization() {
+    }
+
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private final String name;
-    private final URL website;
-    private final List<Period> periods;
+    private String name;
+    private URL website;
+    private List<Period> periods;
 
     public Organization(String name, URL website, List<Period> periods) {
         this.name = name;
@@ -37,37 +43,35 @@ public class Organization implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Organization that = (Organization) o;
-
-        if (!Objects.equals(name, that.name)) return false;
-        if (!Objects.equals(website, that.website)) return false;
-        return Objects.equals(periods, that.periods);
+        return Objects.equals(name, that.name) && Objects.equals(website, that.website) && Objects.equals(periods, that.periods);
     }
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + (website != null ? website.hashCode() : 0);
-        result = 31 * result + (periods != null ? periods.hashCode() : 0);
-        return result;
+        return Objects.hash(name, website, periods);
     }
 
     @Override
     public String toString() {
         return "Organization{" +
                 "name='" + name + '\'' +
+                ", website=" + website +
+                ", periods=" + periods +
                 '}';
     }
 
     public static class Period implements Serializable {
+        public Period() {
+        }
+
         @Serial
         private static final long serialVersionUID = 1L;
 
-        private final String title;
-        private final String description;
-        private final LocalDate startDate;
-        private final LocalDate endDate;
+        private String title;
+        private String description;
+        private LocalDate startDate;
+        private LocalDate endDate;
 
 //        public Period(int startYear, Month startMonth, String title, String description) {
 //            this(DateUtil.of(startYear, startMonth), NOW, title, description);

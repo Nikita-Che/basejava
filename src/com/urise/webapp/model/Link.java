@@ -6,10 +6,13 @@ import java.net.URL;
 import java.util.Objects;
 
 public class Link implements Serializable {
+    public Link() {
+    }
+
     @Serial
     private static final long serialVersionUID = 1L;
-    private final String name;
-    private final URL url;
+    private String name;
+    private URL url;
 
     public Link(String name, URL url) {
         Objects.requireNonNull(name, "name must not be null");

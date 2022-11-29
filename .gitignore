@@ -48,3 +48,12 @@ log
 /lib/junit-platform-suite-engine-1.9.1-sources.jar
 /lib/opentest4j-1.2.0-javadoc.jar
 /lib/opentest4j-1.2.0-sources.jar
+/lib/javax.ejb.jar
+/lib/javax.persistence.jar
+/lib/javax.servlet.jsp.jstl.jar
+/lib/javax.servlet.jar
+/lib/javax.resource.jar
+/lib/javax.jms.jar
+/lib/javax.annotation.jar
+/lib/javax.servlet.jsp.jar
+/lib/javax.transaction.jar
