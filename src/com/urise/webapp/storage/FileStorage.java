@@ -2,7 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
-import com.urise.webapp.storage.strategy.Strategie;
+import com.urise.webapp.storage.strategie.SerializerStrategie;
 
 import java.io.*;
 import java.util.Arrays;
@@ -13,13 +13,13 @@ import java.util.stream.Stream;
 
 public class FileStorage extends AbstractStorage<File> {
     private final File directory;
-    private Strategie strategie;
+    private SerializerStrategie strategie;
 
-    public void setStrategie(Strategie strategie) {
+    public void setStrategie(SerializerStrategie strategie) {
         this.strategie = strategie;
     }
 
-    protected FileStorage(File directory, Strategie strategie) {
+    protected FileStorage(File directory, SerializerStrategie strategie) {
         Objects.requireNonNull(directory, "directory must not be null");
         Objects.requireNonNull(strategie, "strategy must not be null");
         if (!directory.isDirectory()) {
@@ -94,10 +94,11 @@ public class FileStorage extends AbstractStorage<File> {
     }
 
     private Stream<File> getFileList() {
-        if (Arrays.stream(directory.listFiles()) == null) {
+        Stream<File> file = Arrays.stream(directory.listFiles());
+        if (file == null) {
             throw new StorageException("Directory read error", null);
         }
-        return Arrays.stream(Objects.requireNonNull(directory.listFiles()));
+        return file;
 //        try {
 //            return Files.list(directory);
 //        } catch (IOException e) {

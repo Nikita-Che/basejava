@@ -1,12 +1,12 @@
-package com.urise.webapp.storage.strategy;
+package com.urise.webapp.storage.strategie;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.io.*;
 
-public class StrategieImpl implements Strategie {
-    public StrategieImpl() {
+public class ObjectStreamSerializer implements SerializerStrategie {
+    public ObjectStreamSerializer() {
     }
 
     @Override
@@ -23,9 +23,5 @@ public class StrategieImpl implements Strategie {
         } catch (ClassNotFoundException e) {
             throw new StorageException("Error read resume", null, e);
         }
-    }
-
-    @Override
-    public void strategySelection() {
     }
 }
