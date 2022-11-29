@@ -16,7 +16,9 @@ import static com.urise.webapp.ResumeTestData.createResume;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractStorageTest {
-    static String path = "C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\storage";
+    // TODO: 29.11.2022   29.11.2022 пас с рабочего и домашнего компа
+//    static String path = "C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\storage";
+    static String path = "D:\\Никита\\java\\repo\\basejava\\storage";
     protected static final File STORAGE_DIR = new File(path);
 
     private final Storage storage;
