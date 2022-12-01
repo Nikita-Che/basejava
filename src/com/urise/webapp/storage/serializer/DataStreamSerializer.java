@@ -43,7 +43,7 @@ public class DataStreamSerializer implements SerializerStrategie {
             }
 
             for (int i = 0; i < size; i++) {
-                resume.addSection(SectionType.valueOf(dis.readUTF()), dis.readUTF());
+//                resume.addSection(SectionType.valueOf(dis.readUTF()), dis.readUTF());
             }
             // TODO implements sections
             return resume;
