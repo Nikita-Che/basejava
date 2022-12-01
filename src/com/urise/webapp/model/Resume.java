@@ -52,6 +52,10 @@ public class Resume implements Serializable {
         return contacts;
     }
 
+    public Map<SectionType, AbstractSection> getSections() {
+        return sections;
+    }
+
     public String getContact(ContactType type) {
         return contacts.get(type);
     }

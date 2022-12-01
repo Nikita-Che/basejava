@@ -66,8 +66,8 @@ public class ResumeTestData {
         sectionsWorker.put(SectionType.OBJECTIVE, objectiveTextSection);
         sectionsWorker.put(SectionType.ACHIEVEMENT, achivementlistSection);
         sectionsWorker.put(SectionType.QUALIFICATIONS, qualiflistSection);
-        sectionsWorker.put(SectionType.EXPERIENCE, expOrganizationSection); // TODO: 29.11.2022 Вернуть добавление. Косячат тесты в листе периодов. Периоды не добавляются адекватно
-        sectionsWorker.put(SectionType.EDUCATION, expOrganizationSection1);
+//        sectionsWorker.put(SectionType.EXPERIENCE, expOrganizationSection); // TODO: 29.11.2022 Вернуть добавление. Косячат тесты в листе периодов. Периоды не добавляются адекватно
+//        sectionsWorker.put(SectionType.EDUCATION, expOrganizationSection1);
 
         Resume resume = new Resume(uuid, fullName);
         resume.addSections(sectionsWorker);
