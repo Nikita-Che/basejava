@@ -43,6 +43,18 @@ public class Organization implements Serializable {
         return periods;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWebsite(URL website) {
+        this.website = website;
+    }
+
+    public void setPeriods(List<Period> periods) {
+        this.periods = periods;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -80,9 +92,6 @@ public class Organization implements Serializable {
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate endDate;
 
-        private Date startDate1;
-        private Date endDate1;
-
 //        public Period(int startYear, Month startMonth, String title, String description) {
 //            this(DateUtil.of(startYear, startMonth), NOW, title, description);
 //        }
@@ -116,6 +125,22 @@ public class Organization implements Serializable {
 
         public LocalDate getEndDate() {
             return endDate;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        public void setStartDate(LocalDate startDate) {
+            this.startDate = startDate;
+        }
+
+        public void setEndDate(LocalDate endDate) {
+            this.endDate = endDate;
         }
 
         @Override
