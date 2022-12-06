@@ -3,6 +3,7 @@ package com.urise.webapp.storage.serializer;
 import com.urise.webapp.model.*;
 
 import java.io.*;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -98,33 +99,28 @@ public class DataStreamSerializer implements SerializerStrategie {
                         for (int j = 0; j < size2; j++) {
                             Organization organization = new Organization();
                             organization.setName(dis.readUTF());
-//                            URL url = new URL(dis.readUTF());
-//                            organization.setWebsite(url);
+                            URL url = new URL(dis.readUTF());
+                            organization.setWebsite(url);
 
                             List<Organization.Period> periods = new ArrayList<>();
-
-                            Organization.Period firstPeriod = new Organization.Period();
-                            firstPeriod.setTitle("title");
-                            firstPeriod.setDescription("des");
-                            firstPeriod.setStartDate(LocalDate.now());
-                            firstPeriod.setEndDate(LocalDate.now());
-                            periods.add(firstPeriod);
-
-                            Organization.Period secondPeriod = new Organization.Period();
-                            secondPeriod.setTitle("title");
-                            secondPeriod.setDescription("des");
-                            secondPeriod.setStartDate(LocalDate.now());
-                            secondPeriod.setEndDate(LocalDate.now());
-                            periods.add(secondPeriod);
-
+                            int size3 = dis.readInt();
+                            for (int i1 = 0; i1 < size3; i1++) {
+                                Organization.Period period = new Organization.Period();
+                                period.setTitle(dis.readUTF());
+                                period.setDescription(dis.readUTF());
+                                period.setStartDate(LocalDate.parse(dis.readUTF()));
+                                period.setEndDate(LocalDate.parse(dis.readUTF()));
+                                periods.add(period);
+                            }
                             organization.setPeriods(periods);
                             organizationList.add(organization);
+                            organizationSection.setOrganizationList(organizationList);
                         }
                         sectionMap.put(sectionType, organizationSection);
                     }
                 }
+                resume.addSections(sectionMap);
             }
-            resume.addSections(sectionMap);
             return resume;
         }
     }
