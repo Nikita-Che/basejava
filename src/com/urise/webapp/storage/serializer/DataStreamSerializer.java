@@ -11,9 +11,9 @@ import java.util.Map;
 public class DataStreamSerializer implements SerializerStrategie {
 //    public static void main(String[] args) throws IOException {
 //        Resume resume = ResumeTestData.createResume("12", "Pidor");
-//        DataOutputStream dos = new DataOutputStream(new FileOutputStream(new File("f://java.txt")));
+//        DataOutputStream dos = new DataOutputStream(new FileOutputStream(new File("c://java/java.txt")));
 //        doWrite(resume, dos);
-//    }
+//}
 
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {
@@ -45,30 +45,16 @@ public class DataStreamSerializer implements SerializerStrategie {
                         }
                     }
                     case EXPERIENCE, EDUCATION -> {
+                        List<Organization> organizationList = ((OrganizationSection) sections).getOrganizationList();
+                        dos.writeInt(organizationList.size());
+                        for (Organization s : organizationList) {
+                            dos.writeUTF(String.valueOf(s));
+                        }
                     }
                 }
             }
         }
     }
-//                    case EXPERIENCE, EDUCATION -> {
-//                        OrganizationSection exp = (OrganizationSection) entry.getValue();
-//                        addListOraginizationWithPeriods(dos, exp);
-//    private static void addListOraginizationWithPeriods(DataOutputStream dos, OrganizationSection exp) throws
-//            IOException {
-//        List<Organization> organizationList = exp.getOrganizationList();
-//        for (Organization organization : organizationList) {
-//            dos.writeUTF(organization.getName());
-//            URL url = organization.getWebsite();
-//            dos.writeUTF(url.toString());
-//            List<Organization.Period> periods = organization.getPeriods();
-//            for (Organization.Period period : periods) {
-//                dos.writeUTF(period.getTitle());
-//                dos.writeUTF(period.getDescription());
-//                dos.writeUTF(valueOf(period.getStartDate()));
-//                dos.writeUTF(valueOf(period.getEndDate()));
-//            }
-//        }
-//    }
 
     @Override
     public Resume doRead(InputStream is) throws IOException {
@@ -110,6 +96,28 @@ public class DataStreamSerializer implements SerializerStrategie {
         }
     }
 }
+
+//                    case EXPERIENCE, EDUCATION -> {
+//                        OrganizationSection exp = (OrganizationSection) entry.getValue();
+//                        addListOraginizationWithPeriods(dos, exp);
+//    private static void addListOraginizationWithPeriods(DataOutputStream dos, OrganizationSection exp) throws
+//            IOException {
+//        List<Organization> organizationList = exp.getOrganizationList();
+//        for (Organization organization : organizationList) {
+//            dos.writeUTF(organization.getName());
+//            URL url = organization.getWebsite();
+//            dos.writeUTF(url.toString());
+//            List<Organization.Period> periods = organization.getPeriods();
+//            for (Organization.Period period : periods) {
+//                dos.writeUTF(period.getTitle());
+//                dos.writeUTF(period.getDescription());
+//                dos.writeUTF(valueOf(period.getStartDate()));
+//                dos.writeUTF(valueOf(period.getEndDate()));
+//            }
+//        }
+
+
+
 //                        OrganizationSection exp = new OrganizationSection();
 //                        List<Organization> organizationList = new ArrayList<>();
 //
