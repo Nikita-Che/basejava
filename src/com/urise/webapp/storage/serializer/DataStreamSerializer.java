@@ -3,6 +3,7 @@ package com.urise.webapp.storage.serializer;
 import com.urise.webapp.model.*;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -48,7 +49,10 @@ public class DataStreamSerializer implements SerializerStrategie {
                         List<Organization> organizationList = ((OrganizationSection) sections).getOrganizationList();
                         dos.writeInt(organizationList.size());
                         for (Organization s : organizationList) {
-                            dos.writeUTF(String.valueOf(s));
+                            dos.writeUTF(s.getName());
+                            dos.writeUTF(String.valueOf(s.getWebsite()));
+                            List<Organization.Period> periods = s.getPeriods();
+                            dos.writeUTF(String.valueOf(periods));
                         }
                     }
                 }
@@ -87,10 +91,35 @@ public class DataStreamSerializer implements SerializerStrategie {
                         listSection.setItems(stringList);
                         sectionMap.put(sectionType, listSection);
                     }
-
                     case EDUCATION, EXPERIENCE -> {
                         OrganizationSection organizationSection = new OrganizationSection();
+                        int size2 = dis.readInt();
+                        List<Organization> organizationList = new ArrayList<>();
+                        for (int j = 0; j < size2; j++) {
+                            Organization organization = new Organization();
+                            organization.setName(dis.readUTF());
+//                            URL url = new URL(dis.readUTF());
+//                            organization.setWebsite(url);
 
+                            List<Organization.Period> periods = new ArrayList<>();
+
+                            Organization.Period firstPeriod = new Organization.Period();
+                            firstPeriod.setTitle("title");
+                            firstPeriod.setDescription("des");
+                            firstPeriod.setStartDate(LocalDate.now());
+                            firstPeriod.setEndDate(LocalDate.now());
+                            periods.add(firstPeriod);
+
+                            Organization.Period secondPeriod = new Organization.Period();
+                            secondPeriod.setTitle("title");
+                            secondPeriod.setDescription("des");
+                            secondPeriod.setStartDate(LocalDate.now());
+                            secondPeriod.setEndDate(LocalDate.now());
+                            periods.add(secondPeriod);
+
+                            organization.setPeriods(periods);
+                            organizationList.add(organization);
+                        }
                         sectionMap.put(sectionType, organizationSection);
                     }
                 }
