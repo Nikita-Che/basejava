@@ -18,5 +18,4 @@ import org.junit.platform.suite.api.Suite;
                 DataPathStorageTest.class
         })
 public class AllStorageTests {
-
 }
