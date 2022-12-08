@@ -22,11 +22,15 @@ public class DataStreamSerializer implements SerializerStrategie {
             dos.writeUTF(resume.getUuid());
             dos.writeUTF(resume.getFullName());
             Map<ContactType, String> contacts = resume.getContacts();
-            dos.writeInt(contacts.size());
-            for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
-                dos.writeUTF(entry.getKey().name());
-                dos.writeUTF(entry.getValue());
-            }
+            writeWithException(contacts.entrySet(), dos, contactTypeStringEntry -> {
+                dos.writeUTF(contactTypeStringEntry.getKey().name());
+                dos.writeUTF(contactTypeStringEntry.getValue());
+            });
+
+//            for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
+//                dos.writeUTF(entry.getKey().name());
+//                dos.writeUTF(entry.getValue());
+//            }
 
             Map<SectionType, AbstractSection> sectionMap = resume.getSections();
             dos.writeInt(sectionMap.size());
@@ -71,7 +75,10 @@ public class DataStreamSerializer implements SerializerStrategie {
     }
 
     public <T> void writeWithException (Collection<T> collection, DataOutputStream dos, CustomConsumer<? super T> consumer) throws IOException {
-
+        dos.writeInt(collection.size());
+        for (T item: collection){
+            consumer.accept(item);
+        }
     }
 
     @Override
