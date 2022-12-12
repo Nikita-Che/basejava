@@ -83,8 +83,7 @@ public class DataStreamSerializer implements SerializerStrategie {
             readWithException(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
 
             EnumMap<SectionType, AbstractSection> sectionMap = new EnumMap<>(SectionType.class);
-            int size1 = dis.readInt();
-            for (int i = 0; i < size1; i++) {
+            readWithException(dis, () -> {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
                 switch (sectionType) {
                     case PERSONAL, OBJECTIVE -> {
@@ -125,7 +124,8 @@ public class DataStreamSerializer implements SerializerStrategie {
                         sectionMap.put(sectionType, organizationSection);
                     }
                 }
-            }
+            });
+
             resume.addSections(sectionMap);
             return resume;
         }
