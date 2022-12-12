@@ -27,11 +27,6 @@ public class DataStreamSerializer implements SerializerStrategie {
                 dos.writeUTF(contactTypeStringEntry.getValue());
             });
 
-//            for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
-//                dos.writeUTF(entry.getKey().name());
-//                dos.writeUTF(entry.getValue());
-//            }
-
             writeWithException(resume.getSections().entrySet(), dos, sectionTypeAbstractSectionEntry -> {
                 SectionType sectionType = sectionTypeAbstractSectionEntry.getKey();
                 dos.writeUTF(sectionType.name());
@@ -65,41 +60,6 @@ public class DataStreamSerializer implements SerializerStrategie {
                     }
                 }
             });
-//            Map<SectionType, AbstractSection> sectionMap = resume.getSections();
-//            dos.writeInt(sectionMap.size());
-//            for (Map.Entry<SectionType, AbstractSection> entry : sectionMap.entrySet()) {
-//                SectionType sectionType = entry.getKey();
-//                dos.writeUTF(sectionType.name());
-//                AbstractSection sections = entry.getValue();
-//                switch (sectionType) {
-//                    case PERSONAL, OBJECTIVE -> {
-//                        dos.writeUTF(((TextSection) sections).getContent());
-//                    }
-//                    case ACHIEVEMENT, QUALIFICATIONS -> {
-//                        List<String> list = ((ListSection) sections).getItems();
-//                        dos.writeInt(list.size());
-//                        for (String s : list) {
-//                            dos.writeUTF(s);
-//                        }
-//                    }
-//                    case EXPERIENCE, EDUCATION -> {
-//                        List<Organization> organizationList = ((OrganizationSection) sections).getOrganizationList();
-//                        dos.writeInt(organizationList.size());
-//                        for (Organization s : organizationList) {
-//                            dos.writeUTF(s.getName());
-//                            dos.writeUTF(String.valueOf(s.getWebsite()));
-//                            List<Organization.Period> periods = s.getPeriods();
-//                            dos.writeInt(periods.size());
-//                            for (Organization.Period s1 : periods) {
-//                                dos.writeUTF(s1.getTitle());
-//                                dos.writeUTF(s1.getDescription());
-//                                dos.writeUTF(String.valueOf(s1.getStartDate()));
-//                                dos.writeUTF(String.valueOf(s1.getEndDate()));
-//                            }
-//                        }
-//                    }
-//                }
-//            }
         }
     }
 
