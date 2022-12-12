@@ -63,13 +63,13 @@ public class DataStreamSerializer implements SerializerStrategie {
         }
     }
 
-    public interface CustomConsumer <T> {
+    public interface CustomConsumer<T> {
         void accept(T t) throws IOException;
     }
 
-    public <T> void writeWithException (Collection<T> collection, DataOutputStream dos, CustomConsumer<? super T> consumer) throws IOException {
+    public <T> void writeWithException(Collection<T> collection, DataOutputStream dos, CustomConsumer<? super T> consumer) throws IOException {
         dos.writeInt(collection.size());
-        for (T item: collection){
+        for (T item : collection) {
             consumer.accept(item);
         }
     }
@@ -80,10 +80,7 @@ public class DataStreamSerializer implements SerializerStrategie {
             String uuid = dis.readUTF();
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
-            int size = dis.readInt();
-            for (int i = 0; i < size; i++) {
-                resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF());
-            }
+            readWithException(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
 
             EnumMap<SectionType, AbstractSection> sectionMap = new EnumMap<>(SectionType.class);
             int size1 = dis.readInt();
@@ -131,6 +128,17 @@ public class DataStreamSerializer implements SerializerStrategie {
             }
             resume.addSections(sectionMap);
             return resume;
+        }
+    }
+
+    public interface CustomInterface {
+        void method() throws IOException;
+    }
+
+    public void readWithException(DataInputStream dis, CustomInterface customInterface) throws IOException {
+        int size = dis.readInt();
+        for (int i = 0; i < size; i++) {
+            customInterface.method();
         }
     }
 }
