@@ -87,13 +87,7 @@ public class DataStreamSerializer implements SerializerStrategie {
                     }
                     case ACHIEVEMENT, QUALIFICATIONS -> {
                         List<String> stringList = new ArrayList<>();
-
                         readWithException(dis, () -> stringList.add(dis.readUTF()));
-
-//                        int listSize = dis.readInt();
-//                        for (int j = 0; j < listSize; j++) {
-//                            stringList.add(dis.readUTF());
-//                        }
                         sectionMap.put(sectionType, new ListSection(stringList));
                     }
                     case EDUCATION, EXPERIENCE -> {
@@ -107,15 +101,14 @@ public class DataStreamSerializer implements SerializerStrategie {
                             organization.setWebsite(url);
 
                             List<Organization.Period> periods = new ArrayList<>();
-                            int size3 = dis.readInt();
-                            for (int i1 = 0; i1 < size3; i1++) {
+                            readWithException(dis, () -> {
                                 Organization.Period period = new Organization.Period();
                                 period.setTitle(dis.readUTF());
                                 period.setDescription(dis.readUTF());
                                 period.setStartDate(LocalDate.parse(dis.readUTF()));
                                 period.setEndDate(LocalDate.parse(dis.readUTF()));
                                 periods.add(period);
-                            }
+                            });
                             organization.setPeriods(periods);
                             organizationList.add(organization);
                             organizationSection.setOrganizationList(organizationList);
