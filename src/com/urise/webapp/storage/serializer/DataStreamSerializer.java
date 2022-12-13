@@ -46,13 +46,12 @@ public class DataStreamSerializer implements SerializerStrategie {
                             dos.writeUTF(s.getName());
                             dos.writeUTF(String.valueOf(s.getWebsite()));
                             List<Organization.Period> periods = s.getPeriods();
-                            dos.writeInt(periods.size());
-                            for (Organization.Period s1 : periods) {
-                                dos.writeUTF(s1.getTitle());
-                                dos.writeUTF(s1.getDescription());
-                                dos.writeUTF(String.valueOf(s1.getStartDate()));
-                                dos.writeUTF(String.valueOf(s1.getEndDate()));
-                            }
+                            writeWithException(periods, dos, period -> {
+                                dos.writeUTF(period.getTitle());
+                                dos.writeUTF(period.getDescription());
+                                dos.writeUTF(String.valueOf(period.getStartDate()));
+                                dos.writeUTF(String.valueOf(period.getEndDate()));
+                            });
                         }
                     }
                 }
