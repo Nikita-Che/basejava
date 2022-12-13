@@ -92,9 +92,8 @@ public class DataStreamSerializer implements SerializerStrategie {
                     }
                     case EDUCATION, EXPERIENCE -> {
                         OrganizationSection organizationSection = new OrganizationSection();
-                        int size2 = dis.readInt();
                         List<Organization> organizationList = new ArrayList<>();
-                        for (int j = 0; j < size2; j++) {
+                        readWithException(dis, () -> {
                             Organization organization = new Organization();
                             organization.setName(dis.readUTF());
                             URL url = new URL(dis.readUTF());
@@ -112,12 +111,11 @@ public class DataStreamSerializer implements SerializerStrategie {
                             organization.setPeriods(periods);
                             organizationList.add(organization);
                             organizationSection.setOrganizationList(organizationList);
-                        }
+                        });
                         sectionMap.put(sectionType, organizationSection);
                     }
                 }
             });
-
             resume.addSections(sectionMap);
             return resume;
         }
