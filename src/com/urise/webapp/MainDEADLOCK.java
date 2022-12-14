@@ -8,7 +8,7 @@ public class MainDEADLOCK {
 
     public static void main(String[] args) {
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             Thread thread = new Thread(() -> {
                 method1();
                 method2();
@@ -20,11 +20,6 @@ public class MainDEADLOCK {
             });
             thread1.start();
 
-            Thread thread2 = new Thread(() -> {
-                method2();
-                method1();
-            });
-            thread2.start();
         }
 
         System.out.println(fistCount);
@@ -33,8 +28,8 @@ public class MainDEADLOCK {
 
     public static void method1() {
         synchronized (objectForLocking) {
-            fistCount++;
             synchronized (objectForLocking2) {
+                fistCount++;
                 secondCount++;
             }
         }
@@ -42,9 +37,9 @@ public class MainDEADLOCK {
 
     public static void method2() {
         synchronized (objectForLocking2) {
-            fistCount++;
             synchronized (objectForLocking) {
                 secondCount++;
+                fistCount++;
             }
         }
     }
