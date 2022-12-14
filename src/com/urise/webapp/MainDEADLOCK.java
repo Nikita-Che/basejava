@@ -17,6 +17,14 @@ public class MainDEADLOCK {
         System.out.println(secondCount);
     }
 
+    static class MyThread extends Thread {
+        @Override
+        public void run() {
+            method1();
+            method2();
+        }
+    }
+
     public static void method1() {
         synchronized (objectForLocking) {
             try {
@@ -42,14 +50,6 @@ public class MainDEADLOCK {
                 secondCount++;
                 fistCount++;
             }
-        }
-    }
-
-    static class MyThread extends Thread {
-        @Override
-        public void run() {
-            method1();
-            method2();
         }
     }
 }
