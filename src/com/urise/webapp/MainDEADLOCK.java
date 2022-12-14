@@ -8,19 +8,10 @@ public class MainDEADLOCK {
 
     public static void main(String[] args) {
 
-        for (int i = 0; i < 10000; i++) {
-            Thread thread = new Thread(() -> {
-                method1();
-                method2();
-            });
-            thread.start();
-            Thread thread1 = new Thread(() -> {
-                method2();
-                method1();
-            });
-            thread1.start();
-
-        }
+        MyThread myThread = new MyThread();
+        MyThread myThread1 = new MyThread();
+        myThread.start();
+        myThread1.start();
 
         System.out.println(fistCount);
         System.out.println(secondCount);
@@ -28,6 +19,11 @@ public class MainDEADLOCK {
 
     public static void method1() {
         synchronized (objectForLocking) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             synchronized (objectForLocking2) {
                 fistCount++;
                 secondCount++;
@@ -37,10 +33,23 @@ public class MainDEADLOCK {
 
     public static void method2() {
         synchronized (objectForLocking2) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             synchronized (objectForLocking) {
                 secondCount++;
                 fistCount++;
             }
+        }
+    }
+
+    static class MyThread extends Thread {
+        @Override
+        public void run() {
+            method1();
+            method2();
         }
     }
 }
