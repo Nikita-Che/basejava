@@ -27,29 +27,32 @@ public class MainDEADLOCK {
 
     public static void method1() {
         synchronized (objectForLocking) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            sleeper(100L);
             synchronized (objectForLocking2) {
-                fistCount++;
-                secondCount++;
+                counting();
             }
         }
     }
 
     public static void method2() {
         synchronized (objectForLocking2) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            sleeper(110L);
             synchronized (objectForLocking) {
-                secondCount++;
-                fistCount++;
+                counting();
             }
+        }
+    }
+
+    private static void counting() {
+        fistCount++;
+        secondCount++;
+    }
+
+    private static void sleeper(Long millis)  {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }
