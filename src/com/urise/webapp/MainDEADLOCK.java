@@ -8,10 +8,7 @@ public class MainDEADLOCK {
 
     public static void main(String[] args) {
 
-        MyThread myThread = new MyThread();
-        MyThread myThread1 = new MyThread();
-        myThread.start();
-        myThread1.start();
+        creatingThreads();
 
         System.out.println(fistCount);
         System.out.println(secondCount);
@@ -22,6 +19,13 @@ public class MainDEADLOCK {
         public void run() {
             method1();
             method2();
+        }
+    }
+
+    private static void creatingThreads() {
+        for (int i = 0; i < 2; i++) {
+            MyThread myThread = new MyThread();
+            myThread.start();
         }
     }
 
