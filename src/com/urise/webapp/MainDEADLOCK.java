@@ -8,7 +8,7 @@ public class MainDEADLOCK {
 
     public static void main(String[] args) {
 
-        creatingThreads();
+        creatingDeadThreads();
 
         System.out.println(fistCount);
         System.out.println(secondCount);
@@ -17,31 +17,22 @@ public class MainDEADLOCK {
     static class MyThread extends Thread {
         @Override
         public void run() {
-            method1();
-            method2();
+            deadLocking(objectForLocking, 100L, objectForLocking2);
+            deadLocking(objectForLocking2, 110L, objectForLocking);
         }
     }
 
-    private static void creatingThreads() {
+    private static void creatingDeadThreads() {
         for (int i = 0; i < 2; i++) {
             MyThread myThread = new MyThread();
             myThread.start();
         }
     }
 
-    public static void method1() {
+    private static void deadLocking(Object objectForLocking, long millis, Object objectForLocking2) {
         synchronized (objectForLocking) {
-            sleeper(100L);
+            sleeper(millis);
             synchronized (objectForLocking2) {
-                counting();
-            }
-        }
-    }
-
-    public static void method2() {
-        synchronized (objectForLocking2) {
-            sleeper(110L);
-            synchronized (objectForLocking) {
                 counting();
             }
         }
