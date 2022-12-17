@@ -17,10 +17,11 @@ import static com.urise.webapp.ResumeTestData.createResume;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class AbstractStorageTest {
-//    static String path = Config.get().getStorageDir();
-//    static String path = "D:\\Никита\\java\\repo\\basejava\\storage";
+//    static String path = "C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\storage";
+    static String path = "D:\\Никита\\java\\repo\\basejava\\storage";
 //    static String path = "D:\\storage";
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
+//    protected static final File STORAGE_DIR = new File(path);
 
     private final Storage storage;
 
