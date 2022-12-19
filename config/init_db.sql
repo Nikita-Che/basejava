@@ -28,3 +28,6 @@ alter table contact
 create unique index contact_uuid_type_index
     on contact (id, resume_uuid, type);
 
+-- UPDATE resume SET full_name = 'GOVNO' WHERE full_name = 'pidor';
+
+select * from resume
