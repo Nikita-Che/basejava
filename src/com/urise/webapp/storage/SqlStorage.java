@@ -102,7 +102,7 @@ public class SqlStorage implements Storage {
     public List<Resume> getAllSorted() {
         LOG.info("getAllSorted");
         try (Connection conn = connectionFactory.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * from resume ORDER BY uuid DESC ")) {
+             PreparedStatement ps = conn.prepareStatement("SELECT * from resume ORDER BY full_name")) {
             ResultSet resultSet = ps.executeQuery();
             List<Resume> resumes = new ArrayList<>();
             while (resultSet.next()) {
