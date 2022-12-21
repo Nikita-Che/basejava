@@ -74,9 +74,8 @@ public class SqlStorage implements Storage {
         try (Connection conn = connectionFactory.getConnection();
              PreparedStatement ps = conn.prepareStatement("DELETE FROM resume r WHERE r.uuid =?")) {
             ps.execute();
-
         } catch (SQLException e) {
-            throw new StorageException(e);
+            throw new NotExistStorageException(uuid);
         }
     }
 
@@ -107,7 +106,6 @@ public class SqlStorage implements Storage {
             while (resultSet.next()) {
                 resumes.add(new Resume(resultSet.getString("uuid"), resultSet.getString("full_name")));
             }
-//            resumes.sort(Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid));
             return resumes;
         } catch (SQLException e) {
             throw new StorageException(e);
