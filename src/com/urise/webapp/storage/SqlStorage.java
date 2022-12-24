@@ -71,7 +71,8 @@ public class SqlStorage implements Storage {
             }
 //            return new Resume(uuid, rs.getString("full_name"));
         });
-        return new Resume(uuid, "full_name"); // TODO: 24.12.2022 Проверить работу. просто строку full_name возвращать нельзя
+        return new Resume(uuid, "full_name");
+        // TODO: 24.12.2022 Проверить работу. просто строку full_name возвращать нельзя, тесты проходят потому что assertGet по uuid сравнивает.
     }
 
     @Override
