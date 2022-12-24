@@ -63,6 +63,7 @@ public class SqlStorage implements Storage {
     @Override
     public Resume get(String uuid) {
         LOG.info("get " + uuid);
+     //return dataBaseRun( .....
         dataBaseRun(connectionFactory, "SELECT * FROM resume r WHERE r.uuid =?", preparedStatement -> {
             preparedStatement.setString(1, uuid);
             ResultSet rs = preparedStatement.executeQuery();
