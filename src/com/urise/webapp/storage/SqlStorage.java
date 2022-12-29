@@ -1,20 +1,15 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.AbstractSection;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
-import com.urise.webapp.model.SectionType;
 import com.urise.webapp.sql.SqlHelper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
@@ -40,7 +35,8 @@ public class SqlStorage implements Storage {
                         ps.setString(2, r.getFullName());
                         ps.execute();
                     }
-                    return addContactsResume(r, conn);
+                    insertContacts(r, conn);
+                    return null;
                 }
         );
     }
@@ -56,11 +52,12 @@ public class SqlStorage implements Storage {
                     throw new NotExistStorageException(r.getUuid());
                 }
             }
-            return addContactsResume(r, conn);
+            insertContacts(r, conn);
+            return null;
         });
     }
 
-    public Object addContactsResume(Resume r, Connection conn) throws SQLException {
+    public void insertContacts(Resume r, Connection conn) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
             for (Map.Entry<ContactType, String> e : r.getContacts().entrySet()) {
                 ps.setString(1, r.getUuid());
@@ -70,7 +67,6 @@ public class SqlStorage implements Storage {
             }
             ps.executeBatch();
         }
-        return null;
     }
 
     @Override
@@ -102,8 +98,10 @@ public class SqlStorage implements Storage {
                     Resume r = new Resume(uuid, rs.getString("full_name"));
                     do {
                         String value = rs.getString("value");
-                        ContactType type = ContactType.valueOf(rs.getString("type"));
-                        r.addContact(type, value);
+                        if (value != null) {
+                            ContactType type = ContactType.valueOf(rs.getString("type"));
+                            r.addContact(type, value);
+                        }
                     } while (rs.next());
                     return r;
                 });
@@ -113,27 +111,24 @@ public class SqlStorage implements Storage {
     public List<Resume> getAllSorted() {
         //достать все из резюме, потом все из контактов и кодом склеить
         LOG.info("getAllSorted");
-        List<Resume> resumes = new ArrayList<>();
-        sqlHelper.transactionalExecute(conn -> {
-            try (PreparedStatement ps = conn.prepareStatement("SELECT * from resume ORDER BY full_name")) {
-                ResultSet resultSet = ps.executeQuery();
-                while (resultSet.next()) {
-                    Resume resume = new Resume(resultSet.getString("uuid"), resultSet.getString("full_name"));
-                    resumes.add(get(resume.getUuid()));
+        Map<String, Resume> map = new LinkedHashMap<>();
+        return sqlHelper.execute("SELECT * FROM resume r LEFT JOIN contact c ON r.uuid = c.resume_uuid ORDER BY full_name", preparedStatement -> {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String uuid = resultSet.getString("uuid");
+                Resume resume = map.get(uuid);
+                if (resume == null) {
+                    resume = new Resume(uuid, resultSet.getString("full_name"));
+                    map.put(uuid, resume);
+                }
+                String value = resultSet.getString("value");
+                if (value != null) {
+                    ContactType type = ContactType.valueOf(resultSet.getString("type"));
+                    resume.addContact(type, value);
                 }
             }
-            try (PreparedStatement ps = conn.prepareStatement("SELECT * from contact ORDER BY resume_uuid")) {
-                ResultSet resultSet = ps.executeQuery();
-                while (resultSet.next()) {
-                    for (Resume resume : resumes) {
-                        //добавить в мапу значения селекта ps
-                        Map<SectionType, AbstractSection> sections = new EnumMap<>(SectionType.class);
-                    }
-                }
-            }
-            return null;
+            return new ArrayList(map.values());
         });
-        return resumes;
     }
 
     @Override
