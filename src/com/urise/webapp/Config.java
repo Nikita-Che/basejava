@@ -12,7 +12,7 @@ import java.util.Properties;
 
 public class Config {
     private static final Config INSTANCE = new Config();
-    protected static final File PROPS = new File("./config/resumes.properties");
+    protected static final File PROPS = new File("/config/resumes.properties");
     private final File storageDir;
     public Properties props = new Properties();
     public Storage storage;
