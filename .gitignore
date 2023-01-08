@@ -57,3 +57,4 @@ log
 /lib/javax.annotation.jar
 /lib/javax.servlet.jsp.jar
 /lib/javax.transaction.jar
+/target/
