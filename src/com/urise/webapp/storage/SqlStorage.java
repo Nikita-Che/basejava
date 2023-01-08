@@ -18,6 +18,11 @@ public class SqlStorage implements Storage {
 
     public SqlStorage(SqlHelper sqlHelper) {
         this.sqlHelper = sqlHelper;
+        try {
+            Class.forName("jdbc:postgresql://localhost:5432/resumes");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

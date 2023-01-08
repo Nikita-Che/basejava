@@ -36,24 +36,6 @@ public class ResumeServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
 
-//        response.setHeader("Content-Type", "text/html; charset=UTF-8");
-//        String name = request.getParameter("name");
-//        String fullName = request.getParameter("fullname");
-//        response.getWriter().write(name == null ? "Hello Resumes " : "Hello " + name + " !" + "\n");
-//        if (name == null) {
-//            response.getWriter().write("Hello Resumes " + "\n");
-//        } else {
-//            response.getWriter().write("Hello " + name + " !" + "\n");
-//        }
-//        if(fullName == null) {
-//            response.getWriter().write("напиши запрос! ");
-//        }
-//        response.getWriter().write("Ну у тебя и фаммилия я скажу " + fullName);
-
-//        PrintWriter out = response.getWriter();
-//        out.print("<h1>Hello Servlet</h1>");
-//        Resume resume = new Resume("Konchen-    ii  ");
-//        response.getWriter().write(String.valueOf(resume));
     }
 
     @Override
