@@ -1,20 +1,17 @@
-package com.urise.webapp.web.javaEEalishev;
+package com.urise.webapp.web;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.io.PrintWriter;
 
-public class SetCookiesServlet extends HttpServlet {
+@WebServlet(name = "ServletTest", value = "/servlet")
+public class ServletTest extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Cookie cookie1 = new Cookie("some_id", "123");
-        Cookie cookie2 = new Cookie("some_name", "Tom");
-
-        cookie1.setMaxAge(24 * 60 * 60);
-        cookie2.setMaxAge(24 * 60 * 60);
-
-        response.addCookie(cookie1);
-        response.addCookie(cookie2);
+        PrintWriter out = response.getWriter();
+        out.println("<h1>Hello Servlet</h1>");
     }
 
     @Override
