@@ -96,8 +96,8 @@ public class ResumeTestData {
         sectionsWorker.put(SectionType.OBJECTIVE, objectiveTextSection);
         sectionsWorker.put(SectionType.ACHIEVEMENT, achivementlistSection);
         sectionsWorker.put(SectionType.QUALIFICATIONS, qualiflistSection);
-        sectionsWorker.put(SectionType.EXPERIENCE, expOrganizationSection);
-        sectionsWorker.put(SectionType.EDUCATION, educationSection);
+//        sectionsWorker.put(SectionType.EXPERIENCE, expOrganizationSection);
+//        sectionsWorker.put(SectionType.EDUCATION, educationSection);
 
         Resume resume = new Resume(uuid, fullName);
         resume.addSections(sectionsWorker);
