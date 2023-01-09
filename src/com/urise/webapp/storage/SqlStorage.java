@@ -212,8 +212,11 @@ public class SqlStorage implements Storage {
 
     private void addSectionToResume(ResultSet rs, Resume r) throws SQLException {
         String content = rs.getString("content");
+        String content1 = content.replace("[^\\da-zA-Zа-яёА-ЯЁ ]", "");
+//        content = content.replace("[", "");
+//        content = content.replace("]", "");
         List<String> list = new ArrayList<>();
-        list.add(content);
+        list.add(content1);
         ListSection listSection = new ListSection();
         listSection.setItems(list);
         if (content != null) {
