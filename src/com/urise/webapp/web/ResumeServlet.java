@@ -24,32 +24,19 @@ public class ResumeServlet extends HttpServlet {
         PrintWriter printWriter = response.getWriter();
         Storage storage = Config.get().storage;
         List<Resume> allSorted = storage.getAllSorted();
-        System.out.println(allSorted);
+        printWriter.write("<h1>Resume Table  <table border=20>  </h1>" + " <br />");
         for (Resume resume : allSorted) {
-            String uuid = resume.getUuid();
-            String fullname = resume.getFullName();
-            printWriter.write("  <tr>\n" +
-                    "    <th>uuid</th>\n" +
-                    "    <th>Full name</th>\n" +
-                    "  </tr>\n" +
-                    "  <tr>\n" +
-                    "    <td>" + uuid + "</td>\n" +
-                    "    <td>"+ fullname +" </td>\n" +
-                    "  </tr>\n");
+            printWriter.write("<html> " +
+                    "<table>\n" +
+                    "<tr>\n" +
+                    "   <td>" + "<b>" + resume.getFullName() + "</b>" + "</td>" + "\n" +
+                    " <table border=11>" +
+                    "   <td>" + "<small>" + resume.getUuid() + "<small/>" + "</td>\n" + "     " +
+                    " </tr>\n" +
+                    "   </table>" +
+                    "<hr/>" +
+                    "</html>");
         }
-
-//        printWriter.println("<table>\n" +
-//                "  <tr>\n" +
-//                "    <th>uuid</th>\n" +
-//                "    <th>Full name</th>\n" +
-//                "  </tr>\n" +
-//                "  <tr>\n" +
-//                "    <td>234234234</td>\n" +
-//                "    <td>Vasya</td>\n" +
-//                "  </tr>\n" +
-//                "</table>");
-//        printWriter.write("<td>");
-
     }
 
     @Override
