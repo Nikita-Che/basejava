@@ -1,15 +1,20 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.model.AbstractSection;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.SectionType;
 import com.urise.webapp.sql.SqlHelper;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 public class SqlStorage implements Storage {
@@ -41,6 +46,7 @@ public class SqlStorage implements Storage {
                         ps.execute();
                     }
                     insertContacts(r, conn);
+                    insertSections(r, conn);
                     return null;
                 }
         );
@@ -58,7 +64,9 @@ public class SqlStorage implements Storage {
                 }
             }
             deleteContacts(r, conn);
+            deleteSections(r, conn);
             insertContacts(r, conn);
+            insertSections(r, conn);
             return null;
         });
     }
@@ -115,6 +123,7 @@ public class SqlStorage implements Storage {
                     map.put(uuid, resume);
                 }
                 addContactToResume(resultSet, resume);
+                addSectionToResume(resultSet, resume);
             }
             return new ArrayList<>(map.values());
         });
@@ -137,6 +146,14 @@ public class SqlStorage implements Storage {
         });
     }
 
+    private void deleteSections(Resume r, Connection conn) throws SQLException {
+        sqlHelper.execute("DELETE FROM section WHERE resume_uuid=?", ps -> {
+            ps.setString(1, r.getUuid());
+            ps.execute();
+            return null;
+        });
+    }
+
     public void insertContacts(Resume r, Connection conn) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
             for (Map.Entry<ContactType, String> e : r.getContacts().entrySet()) {
@@ -149,11 +166,32 @@ public class SqlStorage implements Storage {
         }
     }
 
+    private void insertSections(Resume r, Connection conn) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, content) VALUES (?,?,?)")) {
+            for (Map.Entry<SectionType, AbstractSection> e : r.getSections().entrySet()) {
+                ps.setString(1, r.getUuid());
+                ps.setString(2, e.getKey().name());
+                AbstractSection section = e.getValue();
+                ps.setString(3, section.toString());
+                ps.addBatch();
+            }
+            ps.executeBatch();
+        }
+    }
+
     private static void addContactToResume(ResultSet rs, Resume r) throws SQLException {
         String value = rs.getString("value");
         if (value != null) {
             ContactType type = ContactType.valueOf(rs.getString("type"));
             r.addContact(type, value);
+        }
+    }
+
+    private void addSectionToResume(ResultSet rs, Resume r) throws SQLException {
+        String content = rs.getString("content");
+        if (content != null) {
+            SectionType type = SectionType.valueOf(rs.getString("type"));
+            r.addSection(type, r.getSection(type));
         }
     }
 }
