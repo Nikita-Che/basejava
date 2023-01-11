@@ -225,7 +225,7 @@ public class SqlStorage implements Storage {
                     r.addSection(SectionType.valueOf(String.valueOf(type)), new TextSection(content));
                 }
                 case ACHIEVEMENT, QUALIFICATIONS -> {
-                    r.addSection(SectionType.valueOf(String.valueOf(type)), new ListSection(List.of(content.replaceFirst("\n",", "))));
+                    r.addSection(SectionType.valueOf(String.valueOf(type)), new ListSection(new ArrayList<>(List.of(content.split("\n")))));
 
 //                    ListSection listSection = new ListSection();
 //                    List<String> list = new ArrayList<>();
