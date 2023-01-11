@@ -221,29 +221,8 @@ public class SqlStorage implements Storage {
         if (content != null) {
             SectionType type = SectionType.valueOf(rs.getString("type"));
             switch (type) {
-                case PERSONAL, OBJECTIVE -> {
-                    r.addSection(SectionType.valueOf(String.valueOf(type)), new TextSection(content));
-                }
-                case ACHIEVEMENT, QUALIFICATIONS -> {
-                    r.addSection(SectionType.valueOf(String.valueOf(type)), new ListSection(new ArrayList<>(List.of(content.split("\n")))));
-
-//                    ListSection listSection = new ListSection();
-//                    List<String> list = new ArrayList<>();
-//                    StringBuilder stringBuilder = new StringBuilder();
-//                    StringBuilder stringBuilder1 = new StringBuilder();
-//                    //тут косяк разбить контент на 2 части разделителем n и 2 стринга добавить в лист стрингов
-//
-//                    int index = content.indexOf("\n");
-//
-//                    stringBuilder.append(content, 0, index);
-//                    stringBuilder1.append(content, index + 1, content.length());
-//
-//                    list.add(stringBuilder.toString());
-//                    list.add(stringBuilder1.toString());
-//
-//                    listSection.setItems(list);
-//                    r.addSection(type, listSection);
-                }
+                case PERSONAL, OBJECTIVE -> r.addSection(SectionType.valueOf(String.valueOf(type)), new TextSection(content));
+                case ACHIEVEMENT, QUALIFICATIONS -> r.addSection(SectionType.valueOf(String.valueOf(type)), new ListSection(new ArrayList<>(List.of(content.split("\n")))));
             }
         }
     }
