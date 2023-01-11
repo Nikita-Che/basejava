@@ -130,24 +130,27 @@ public class SqlStorage implements Storage {
         });
     }
 
-//        Map<String, Resume> map = new LinkedHashMap<>();
-//        return sqlHelper.execute("" +
-//                "SELECT * FROM resume r " +
-//                "   LEFT JOIN contact c ON r.uuid = c.resume_uuid " +
-//                "       ORDER BY full_name, uuid", preparedStatement -> {
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            while (resultSet.next()) {
-//                String uuid = resultSet.getString("uuid");
-//                Resume resume = map.get(uuid);
-//                if (resume == null) {
-//                    resume = new Resume(uuid, resultSet.getString("full_name"));
-//                    map.put(uuid, resume);
+//            Map<String, Resume> map = new LinkedHashMap<>();
+//            return sqlHelper.execute("" +
+//                    "SELECT * FROM resume r " +
+//                    "   LEFT JOIN contact c ON r.uuid = c.resume_uuid " +
+//                    "   LEFT JOIN section s on r.uuid = s.resume_uuid" +
+//                    "       ORDER BY full_name, uuid", preparedStatement -> {
+//                ResultSet resultSet = preparedStatement.executeQuery();
+//                while (resultSet.next()) {
+//                    String uuid = resultSet.getString("uuid");
+//                    Resume resume = map.get(uuid);
+//                    if (resume == null) {
+//                        resume = new Resume(uuid, resultSet.getString("full_name"));
+//                        map.put(uuid, resume);
+//                    }
+//                    addContactToResume(resultSet, resume);
+//                    addSectionToResume(resultSet, resume);
 //                }
-//                addContactToResume(resultSet, resume);
-//                addSectionToResume(resultSet, resume);
-//            }
-//            return new ArrayList<>(map.values());
+//                return new ArrayList<>(map.values());
+//            });
 //        });
+//    }
 
     @Override
     public int size() {
@@ -176,7 +179,7 @@ public class SqlStorage implements Storage {
 
     public void insertContacts(Resume r, Connection conn) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement("INSERT INTO contact (resume_uuid, type, value) VALUES (?,?,?)")) {
-            for (Map.Entry<ContactType, String> e : r.getContacts().entrySet()) {
+            for (EnumMap.Entry<ContactType, String> e : r.getContacts().entrySet()) {
                 ps.setString(1, r.getUuid());
                 ps.setString(2, e.getKey().name());
                 ps.setString(3, e.getValue());
@@ -188,32 +191,17 @@ public class SqlStorage implements Storage {
 
     private void insertSections(Resume r, Connection conn) throws SQLException {
         try (PreparedStatement ps = conn.prepareStatement("INSERT INTO section (resume_uuid, type, content) VALUES (?,?,?)")) {
-            for (Map.Entry<SectionType, AbstractSection> e : r.getSections().entrySet()) {
+            for (Map.Entry<SectionType, AbstractSection> entry : r.getSections().entrySet()) {
                 ps.setString(1, r.getUuid());
-                ps.setString(2, e.getKey().name());
-                AbstractSection section = e.getValue();
-                ps.setString(3, section.toString());
-
-
-//                StringBuilder stringBuilder = new StringBuilder();
-//
-//                if (section instanceof TextSection) {
-//                    String content = ((TextSection) section).getContent();
-//                    stringBuilder.append(content);
-//                }
-//
-//                if (section instanceof ListSection) {
-//                    List<String> items = ((ListSection) section).getItems();
-//                    for (int i = 0; i < items.size(); i++) {
-//                        stringBuilder.append(items.get(i));
-//                        if (i != items.size() - 1) {
-//                            stringBuilder.append(", ");
-//                        }
-//                    }
-//                }
-//                ps.setObject(3, stringBuilder.toString());
-
-
+                ps.setString(2, entry.getKey().name());
+                SectionType type = entry.getKey();
+                switch (type) {
+                    case OBJECTIVE, PERSONAL -> ps.setString(3, ((TextSection) entry.getValue()).getContent());
+                    case ACHIEVEMENT, QUALIFICATIONS -> {
+                        List<String> list = ((ListSection) entry.getValue()).getItems();
+                        ps.setString(3, String.join("\n", list));
+                    }
+                }
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -230,46 +218,33 @@ public class SqlStorage implements Storage {
 
     private void addSectionToResume(ResultSet rs, Resume r) throws SQLException {
         String content = rs.getString("content");
-        StringBuilder stringBuilder = new StringBuilder();
+        if (content != null) {
+            SectionType type = SectionType.valueOf(rs.getString("type"));
+            switch (type) {
+                case PERSONAL, OBJECTIVE -> {
+                    TextSection textSection = new TextSection();
+                    textSection.setContent(content);
+                    r.addSection(type, textSection);
+                }
+                case ACHIEVEMENT, QUALIFICATIONS -> {
+                    ListSection listSection = new ListSection();
+                    List<String> list = new ArrayList<>();
+                    StringBuilder stringBuilder = new StringBuilder();
+                    StringBuilder stringBuilder1 = new StringBuilder();
+                    //тут косяк разбить контент на 2 части разделителем n и 2 стринга добавить в лист стрингов
 
-        SectionType type = SectionType.valueOf(rs.getString("type"));
-        if (type.name().equals("PERSONAL") || type.name().equals("OBJECTIVE")) {
-            TextSection textSection = new TextSection();
-            textSection.setContent(content.trim());
-            r.addSection(type, textSection);
-        }
-        if (type.name().equals("ACHIEVEMENT") || type.name().equals("QUALIFICATIONS")) {
-            ListSection listSection = new ListSection();
-            String c = content;
-            List<String> list = List.of("HER");
-//            List<String> list = List.of(c);
-//            List<String> list = List.of(content);
+                    int index = content.indexOf("\n");
 
-            listSection.setItems(list);
-            r.addSection(type, listSection);
+                    stringBuilder.append(content, 0, index);
+                    stringBuilder1.append(content, index + 1, content.length());
+
+                    list.add(stringBuilder.toString());
+                    list.add(stringBuilder1.toString());
+
+                    listSection.setItems(list);
+                    r.addSection(type, listSection);
+                }
+            }
         }
     }
 }
-
-
-//        PERSONAL("Личные качества"), //textSection
-//                ("Позиция"),       //textSection
-//                ACHIEVEMENT("Достижения"),  //ListSection
-//                QUALIFICATIONS("Квалификация"), //ListSection
-
-//            List<String> list = new ArrayList<>();
-//            list.add(content + "PIDOOOOOOOO");
-//            ListSection listSection = new ListSection();
-//            listSection.setItems(list);
-
-
-//        String content = rs.getString("content");
-//        List<String> list = new ArrayList<>();
-//        list.add(content+ "PIDOOOOOOOO");
-//        ListSection listSection = new ListSection();
-//        listSection.setItems(list);
-//        if (content != null) {
-//            SectionType type = SectionType.valueOf(rs.getString("type"));
-//            r.addSection(type, listSection);
-//        }
-
