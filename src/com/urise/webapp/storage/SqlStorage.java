@@ -222,10 +222,11 @@ public class SqlStorage implements Storage {
             for (Map.Entry<SectionType, AbstractSection> entry : r.getSections().entrySet()) {
                 ps.setString(1, r.getUuid());
                 ps.setString(2, entry.getKey().name());
-                SectionType type = entry.getKey();
-                ps.setString(3, JsonParser.write(type, SectionType.class));
+                AbstractSection section = r.getSection(entry.getKey());
+                ps.setString(3, JsonParser.write(section, AbstractSection.class));
 
-//                switch (type) {
+//                SectionType section = entry.getKey();
+//                switch (section) {
 //                    case OBJECTIVE, PERSONAL -> ps.setString(3, ((TextSection) entry.getValue()).getContent());
 //                    case ACHIEVEMENT, QUALIFICATIONS -> {
 //                        List<String> list = ((ListSection) entry.getValue()).getItems();
