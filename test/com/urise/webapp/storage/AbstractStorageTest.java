@@ -1,41 +1,21 @@
 package com.urise.webapp.storage;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import com.urise.webapp.Config;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.util.*;
 
-import static com.urise.webapp.ResumeTestData.createResume;
+import static com.urise.webapp.TestData.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = Config.get().getStorageDir();
-
     private final Storage storage;
-
-    private static final String UUID_1 = String.valueOf(UUID.randomUUID());
-    private static final String UUID_2 = String.valueOf(UUID.randomUUID());
-    private static final String UUID_3 = String.valueOf(UUID.randomUUID());
-    private static final String UUID_4 = String.valueOf(UUID.randomUUID());
-    private static final String FULL_NAME1 = "Vasya";
-    private static final String FULL_NAME2 = "Petya";
-    private static final String FULL_NAME3 = "Kolya";
-    private static final String FULL_NAME4 = "Grisha";
-    private static final String UUID_NOT_EXIST = "dummy";
-    private static final Resume RESUME_1 = createResume(UUID_1, FULL_NAME1);
-    private static final Resume RESUME_2 = createResume(UUID_2, FULL_NAME2);
-    private static final Resume RESUME_3 = createResume(UUID_3, FULL_NAME3);
-    private static final Resume RESUME_4 = createResume(UUID_4, FULL_NAME4);
-    private static final Resume RESUME_5 = createResume(UUID_NOT_EXIST, FULL_NAME1);
-
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
