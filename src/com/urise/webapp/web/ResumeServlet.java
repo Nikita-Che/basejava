@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "MyResumeServlet", value = "/myresume")
+@WebServlet(name = "MyResumeServlet", value = "/myResume")
 public class ResumeServlet extends HttpServlet {
     Storage storage;
     
