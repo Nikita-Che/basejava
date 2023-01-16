@@ -23,7 +23,7 @@ public class ResumeServletOriginal extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("resumes", storage.getAllSorted());
-        request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request, response);
+        request.getRequestDispatcher("\\WEB-INF\\jsp\\list.jsp").forward(request, response);
 
 //        request.setCharacterEncoding("UTF-8");
 //        response.setCharacterEncoding("UTF-8");

@@ -1,8 +1,9 @@
 <%@ page import="com.urise.webapp.model.Resume" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.urise.webapp.model.ContactType" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>--%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
