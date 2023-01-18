@@ -19,6 +19,10 @@ public class Resume implements Serializable {
     public Resume() {
     }
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     @Serial
     private static final long serialVersionUID = 1L;
 
