@@ -1,4 +1,4 @@
-package com.urise.webapp.web;
+package com.urise.webapp.web.javaEEalishev;
 
 import com.urise.webapp.Config;
 import com.urise.webapp.model.Resume;
