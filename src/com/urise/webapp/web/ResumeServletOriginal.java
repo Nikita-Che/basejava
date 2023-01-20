@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet(name = "ResumeServlet", value = "/resume")
 public class ResumeServletOriginal extends HttpServlet {
@@ -29,7 +30,7 @@ public class ResumeServletOriginal extends HttpServlet {
         String uuid = request.getParameter("uuid");
         String action = request.getParameter("action");
         if (action == null) {
-            request.setAttribute("resumes1", storage.getAllSorted());
+            request.setAttribute("resumes", storage.getAllSorted());
             request.getRequestDispatcher("\\WEB-INF\\jsp\\list.jsp").forward(request, response);
             return;
         }
@@ -43,6 +44,12 @@ public class ResumeServletOriginal extends HttpServlet {
             case "edit":
                 resume = storage.get(uuid);
                 break;
+            case "addNewResume":
+                storage.save(resume = new Resume(UUID.randomUUID().toString(), "Please Edit new Resume"));
+                request.setAttribute("resume", resume);
+                request.getRequestDispatcher("\\WEB-INF\\jsp\\view.jsp").
+                        forward(request, response);
+
             default:
                 throw new IllegalStateException("Action" + action + "is  illegal");
         }
