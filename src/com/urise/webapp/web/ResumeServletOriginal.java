@@ -45,9 +45,9 @@ public class ResumeServletOriginal extends HttpServlet {
                 resume = storage.get(uuid);
                 break;
             case "addNewResume":
-                storage.save(resume = new Resume(UUID.randomUUID().toString(), "Please Edit new Resume"));
+                storage.save(resume = new Resume(UUID.randomUUID().toString(), "Please FILL Resume"));
                 request.setAttribute("resume", resume);
-                request.getRequestDispatcher("\\WEB-INF\\jsp\\view.jsp").
+                request.getRequestDispatcher("\\WEB-INF\\jsp\\edit.jsp").
                         forward(request, response);
 
             default:
