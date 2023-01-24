@@ -25,10 +25,6 @@ public class FileStorage extends AbstractStorage<File> {
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
-//         TODO: 25.11.2022 Как маркировать директорию чтобы можно было писать и читать? не работает в тестах
-//        if (!directory.canRead() || directory.canWrite()) {
-//            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not readable/writable");
-//        }
         this.strategie = strategie;
         this.directory = directory;
     }
@@ -99,10 +95,5 @@ public class FileStorage extends AbstractStorage<File> {
             throw new StorageException("Directory read error", null);
         }
         return file;
-//        try {
-//            return Files.list(directory);
-//        } catch (IOException e) {
-//            throw new StorageException("Directory read Error", null, e);
-//        }
     }
 }

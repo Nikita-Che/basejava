@@ -13,12 +13,12 @@ public class ServletTestAuthorization extends HttpServlet {
 
         String user = (String) session.getAttribute("current_user");
         if (user == null) {
-//            response для ананоимного пользователя
+            //response для ананоимного пользователя
             //авторизация
             //регистрация
-//            session.setAttribute("current_user", ID);
+            // session.setAttribute("current_user", ID);
         }else {
-//            response для авторизованного пользователя
+           //response для авторизованного пользователя
         }
     }
 

@@ -24,11 +24,9 @@ public class ServletTestSessions extends HttpServlet {
             cart.setQuantity(quantity);
         }
         session.setAttribute("cart", cart);
-
         getServletContext().getRequestDispatcher("/showCart.jsp").forward(request,response);
 
 //        http://localhost:8080/resumes/servlet1?name=Car&quantity=3
-
 
 //        Integer count = (Integer) session.getAttribute("count");
 //        if (count == null) {

@@ -28,10 +28,7 @@ public class ServletTestMy extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
         List<Resume> allSorted = storage.getAllSorted();
         request.setAttribute("users", allSorted);
-
-
         request.getRequestDispatcher("/WEB-INF/jsp/servletTestMy.jsp").forward(request, response);
-
 
 //        HttpSession session = request.getSession();
 //        Integer counter = (Integer) session.getAttribute("counter");

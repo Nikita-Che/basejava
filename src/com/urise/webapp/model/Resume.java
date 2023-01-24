@@ -10,9 +10,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
-/**
- * Initial resume class
- */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Serializable {
@@ -26,8 +23,6 @@ public class Resume implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    //        implements Comparable<Resume{
-    // Unique identifier
     private String uuid;
     private String fullName;
     public Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
@@ -108,10 +103,4 @@ public class Resume implements Serializable {
                 "Contacts= " + contacts + "\n"+
                 "Sections= " + sections;
     }
-
-//    @Override
-//    public int compareTo(Resume o) {
-//        int cmp = fullName.compareTo(o.fullName);
-//        return cmp!=0? cmp:uuid.compareTo(o.uuid);
-//    }
 }

@@ -9,13 +9,6 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class DataStreamSerializer implements SerializerStrategie {
-//    public static void main(String[] args) throws IOException {
-//        Resume resume = ResumeTestData.createResume("12", "Pidor");
-//        DataOutputStream dos = new DataOutputStream(new FileOutputStream(new File("c://java/java.txt")));
-//        doWrite(resume, dos);
-//        DataInputStream dis = new DataInputStream(new FileInputStream(new File("c://java/java.txt")));
-//        doRead(dis);
-//    }
 
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {

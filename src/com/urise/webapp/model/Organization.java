@@ -98,14 +98,6 @@ public class Organization implements Serializable {
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate endDate;
 
-//        public Period(int startYear, Month startMonth, String title, String description) {
-//            this(DateUtil.of(startYear, startMonth), NOW, title, description);
-//        }
-//
-//        public Period(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
-//            this(of(startYear, startMonth), of(endYear, endMonth), title, description);
-//        }
-
         public Period(String title, String description, LocalDate startDate, LocalDate endDate) {
             Objects.requireNonNull(title, "title  must not be null");
             Objects.requireNonNull(description, "description  must not be null");

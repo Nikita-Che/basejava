@@ -7,9 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Array based storage for Resumes
- */
 public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected final static int STORAGE_LIMIT = 10000;
 
@@ -29,7 +26,6 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     @Override
     protected List<Resume> doCopyAll() {
         list = Arrays.asList(Arrays.copyOfRange(storage, 0, size));
-//        Collections.addAll(list, storage);
         return list;
     }
 

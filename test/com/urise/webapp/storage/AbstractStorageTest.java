@@ -48,7 +48,6 @@ public abstract class AbstractStorageTest {
             List<Resume> list = new ArrayList<>();
             storage.clear();
             assertSize(0);
-//            assertEquals(list, storage.getAllSorted()); исключил потому что нет смысла пустое проверять
             assertGet(RESUME_1);
         });
     }

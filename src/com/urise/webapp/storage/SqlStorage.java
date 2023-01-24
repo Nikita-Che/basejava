@@ -108,24 +108,6 @@ public class SqlStorage implements Storage {
             }
             return r;
         });
-
-//        return sqlHelper.execute(""
-//                        + "SELECT * FROM resume r " +
-//                        "   LEFT JOIN contact c " +
-//                        "      ON r.uuid = c.resume_uuid " +
-//                        "  WHERE r.uuid =? ",
-//                preparedStatement -> {
-//                    preparedStatement.setString(1, uuid);
-//                    ResultSet rs = preparedStatement.executeQuery();
-//                    if (!rs.next()) {
-//                        throw new NotExistStorageException(uuid);
-//                    }
-//                    Resume r = new Resume(uuid, rs.getString("full_name"));
-//                    do {
-//                        addContactToResume(rs, r);
-//                    } while (rs.next());
-//                    return r;
-//                });
     }
 
     @Override
@@ -158,28 +140,6 @@ public class SqlStorage implements Storage {
             return new ArrayList<>(resumes.values());
         });
     }
-
-//            Map<String, Resume> map = new LinkedHashMap<>();
-//            return sqlHelper.execute("" +
-//                    "SELECT * FROM resume r " +
-//                    "   LEFT JOIN contact c ON r.uuid = c.resume_uuid " +
-//                    "   LEFT JOIN section s on r.uuid = s.resume_uuid" +
-//                    "       ORDER BY full_name, uuid", preparedStatement -> {
-//                ResultSet resultSet = preparedStatement.executeQuery();
-//                while (resultSet.next()) {
-//                    String uuid = resultSet.getString("uuid");
-//                    Resume resume = map.get(uuid);
-//                    if (resume == null) {
-//                        resume = new Resume(uuid, resultSet.getString("full_name"));
-//                        map.put(uuid, resume);
-//                    }
-//                    addContactToResume(resultSet, resume);
-//                    addSectionToResume(resultSet, resume);
-//                }
-//                return new ArrayList<>(map.values());
-//            });
-//        });
-//    }
 
     @Override
     public int size() {
@@ -224,16 +184,6 @@ public class SqlStorage implements Storage {
                 ps.setString(2, entry.getKey().name());
                 AbstractSection section = r.getSection(entry.getKey());
                 ps.setString(3, JsonParser.write(section, AbstractSection.class));
-
-//                SectionType section = entry.getKey();
-//                switch (section) {
-//                    case OBJECTIVE, PERSONAL -> ps.setString(3, ((TextSection) entry.getValue()).getContent());
-//                    case ACHIEVEMENT, QUALIFICATIONS -> {
-//                        List<String> list = ((ListSection) entry.getValue()).getItems();
-//                        ps.setString(3, String.join("\n", list));
-//                    }
-//                }
-
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -253,12 +203,6 @@ public class SqlStorage implements Storage {
         if (content != null) {
             SectionType type = SectionType.valueOf(rs.getString("type"));
             r.addSection(type, JsonParser.read(content, AbstractSection.class));
-
-//            switch (type) {
-//                case PERSONAL, OBJECTIVE -> r.addSection(SectionType.valueOf(type.toString()), new TextSection(content));
-//                case ACHIEVEMENT, QUALIFICATIONS -> r.addSection(SectionType.valueOf(String.valueOf(type)), new ListSection(Arrays.asList(content.split("\n"))));
-//            }
-
         }
     }
 }

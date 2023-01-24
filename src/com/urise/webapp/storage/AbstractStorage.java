@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class AbstractStorage<SK> implements Storage {
-//    protected final Logger log = Logger.getLogger(getClass().getName());
     private static final Logger LOG = Logger.getLogger(AbstractStorage.class.getName());
 
     public static Comparator<Resume> comparator = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);

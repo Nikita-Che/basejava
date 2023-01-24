@@ -26,11 +26,6 @@ public class SqlStorageOriginal implements Storage {
         }
     }
 
-//    public SqlStorageOriginal(String dbUrl, String dbUser, String dbPassword) {
-//        sqlHelperOriginal = new SqlHelperOriginal(() ->
-//                DriverManager.getConnection(dbUrl, dbUser, dbPassword));
-//    }
-
     @Override
     public void clear() {
         LOG.info("cleared");

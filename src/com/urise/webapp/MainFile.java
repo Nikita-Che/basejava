@@ -26,11 +26,6 @@ public class MainFile {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-//Сделайте рекурсивный обход и вывод имени файлов в каталогах и подкаталогах (корневой каталог- ваш проект)
-//        String path = "C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\src";
-//        list(path);
-
         print(dir);
     }
 
