@@ -18,6 +18,7 @@
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
 <section>
+    <td><a href="resume?&action=addNewResume">Добавить новое Резюме<img src="img/add.png" alt="4"> </a></td>
     <table border="1" cellpadding="8" cellspacing="0">
         <tr>
             <th>Имя</th>
@@ -25,22 +26,6 @@
             <th>Phone</th>
             <th>Delete</th>
             <th>Edit</th>
-            <%--        </tr>--%>
-
-            <%--        <%--%>
-            <%--            for (Resume resume : (List<Resume>) request.getAttribute("resumes")) {--%>
-            <%--        %>--%>
-            <%--        <c:forEach items="${resumes}" var="resume">--%>
-            <%--            <tr>--%>
-            <%--                <td><a href="resume?uuid=<%=resume.getUuid()%>"><%=resume.getFullName()%>--%>
-            <%--                </a>--%>
-            <%--                </td>--%>
-            <%--                <td><%=resume.getContact(ContactType.EMAIL)%>--%>
-            <%--                </td>--%>
-            <%--            </tr>--%>
-            <%--        <%--%>
-            <%--            }--%>
-            <%--        %>--%>
 
             <jsp:useBean id="resumes" scope="request" type="java.util.List"/>
             <c:forEach items="${resumes}" var="resume">
@@ -54,10 +39,8 @@
             <td><a href="resume?uuid=${resume.uuid}&action=edit"> <img src="img/pencil.png" alt="3"> </a></td>
         </tr>
         </c:forEach>
-
     </table>
-    <td><a href="resume?&action=addNewResume"><img src="img/plus.png" alt="4"> </a></td>
-</section>
+  </section>
 </body>
 <jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
 </html>
