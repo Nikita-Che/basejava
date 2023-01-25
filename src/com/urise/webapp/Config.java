@@ -43,4 +43,8 @@ public class Config {
         }
         return homeDir;
     }
+
+    public Storage getStorage() {
+        return storage;
+    }
 }

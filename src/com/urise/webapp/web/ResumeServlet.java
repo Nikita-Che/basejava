@@ -14,13 +14,13 @@ import java.io.IOException;
 import java.util.UUID;
 
 @WebServlet(name = "ResumeServlet", value = "/resume")
-public class ResumeServletOriginal extends HttpServlet {
+public class ResumeServlet extends HttpServlet {
     Storage storage;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        storage = Config.get().storage;
+        storage = Config.get().getStorage();
     }
 
     @Override
