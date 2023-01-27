@@ -18,5 +18,6 @@ public class TestSingleton {
         TestEnum testEnum = TestEnum.valueOf("ENUM");
         System.out.println(testEnum);
         System.out.println(testEnum.ordinal());
+        System.out.println("hi");
     }
 }
