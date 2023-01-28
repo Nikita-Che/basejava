@@ -105,4 +105,90 @@ public class ResumeTestData {
 
         return resume;
     }
+
+    public static Resume createEmptyResume(String uuid, String fullName) {
+
+        Map<ContactType, String> contacts = new HashMap<>();
+        contacts.put(ContactType.PHONE, "");
+        contacts.put(ContactType.MOBILE, "");
+        contacts.put(ContactType.HOME_PHONE, "");
+        contacts.put(ContactType.EMAIL, "");
+        contacts.put(ContactType.HOME_PAGE, "");
+        contacts.put(ContactType.SKYPE, "");
+        contacts.put(ContactType.GITHUB, "");
+        contacts.put(ContactType.LINKEDIN, "");
+        contacts.put(ContactType.STACKOVERFLOW, "");
+
+        String content = "";
+        TextSection personalTextSection = new TextSection(content);
+        String content1 = "";
+        TextSection objectiveTextSection = new TextSection(content1);
+
+        List<String> achivementlist = Collections.emptyList();
+        ListSection achivementlistSection = new ListSection(achivementlist);
+
+        List<String> qualifications = Collections.emptyList();
+        ListSection qualiflistSection = new ListSection(qualifications);
+
+        LocalDate startDate = LocalDate.of(1999, 1, 1);
+        LocalDate endDate = LocalDate.of(2500, 1, 1);
+        Organization.Period period = new Organization.Period("", "", startDate, endDate);
+        List<Organization.Period> periodList = Collections.emptyList();
+        String url = "http://JavaRush.ru";
+        URL web = null;
+        try {
+            web = new URL(url);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        Organization organization = new Organization("", web, periodList);
+        LocalDate startDate1 = LocalDate.of(2500, 1, 1);
+        LocalDate endDate1 = DateUtil.NOW;
+        Organization.Period period1 = new Organization.Period("", "", startDate1, endDate1);
+        List<Organization.Period> periodList1 = new ArrayList<>();
+        periodList1.add(period1);
+        String url1 = "http://JavaRush.ru";
+        URL web1;
+        try {
+            web1 = new URL(url1);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        Organization organization1 = new Organization("", web1, periodList1);
+        List<Organization> organizationList = new ArrayList<>();
+        organizationList.add(organization);
+        organizationList.add(organization1);
+        OrganizationSection expOrganizationSection = new OrganizationSection(organizationList);
+
+        LocalDate startDate2 = LocalDate.of(2500, 1, 1);
+        LocalDate endDate2 = LocalDate.of(2500, 1, 1);
+        Organization.Period period2 = new Organization.Period("", "", startDate2, endDate2);
+        List<Organization.Period> periodList2 = new ArrayList<>();
+        periodList2.add(period2);
+        String url2 = "http://JavaRush.ru";
+        URL web2;
+        try {
+            web2 = new URL(url2);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        Organization edu1 = new Organization("", web2, periodList2);
+        List<Organization> educationList = new ArrayList<>();
+        educationList.add(edu1);
+        OrganizationSection educationSection = new OrganizationSection(educationList);
+
+        Map<SectionType, AbstractSection> sectionsWorker = new EnumMap<>(SectionType.class);
+        sectionsWorker.put(SectionType.PERSONAL, personalTextSection);
+        sectionsWorker.put(SectionType.OBJECTIVE, objectiveTextSection);
+        sectionsWorker.put(SectionType.ACHIEVEMENT, achivementlistSection);
+        sectionsWorker.put(SectionType.QUALIFICATIONS, qualiflistSection);
+        sectionsWorker.put(SectionType.EXPERIENCE, expOrganizationSection);
+        sectionsWorker.put(SectionType.EDUCATION, educationSection);
+
+        Resume resume = new Resume(uuid, fullName);
+        resume.addSections(sectionsWorker);
+        resume.addContacts(contacts);
+
+        return resume;
+    }
 }

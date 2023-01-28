@@ -1,6 +1,7 @@
 package com.urise.webapp.web;
 
 import com.urise.webapp.Config;
+import com.urise.webapp.ResumeTestData;
 import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
 import com.urise.webapp.storage.Storage;
@@ -45,7 +46,7 @@ public class ResumeServlet extends HttpServlet {
                 resume = storage.get(uuid);
                 break;
             case "addNewResume":
-                storage.save(resume = new Resume(UUID.randomUUID().toString(), "Please FILL Resume"));
+                storage.save(resume = ResumeTestData.createEmptyResume(UUID.randomUUID().toString(), "Please FILL Resume"));
                 request.setAttribute("resume", resume);
                 request.getRequestDispatcher("\\WEB-INF\\jsp\\edit.jsp").
                         forward(request, response);
