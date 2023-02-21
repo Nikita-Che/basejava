@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+// TODO: 21.02.2023 Привет по поводу того вопроса
+//getHomeDir() + /out/artifacts/basejava/basejava.war/WEB-INF/classes/resumes.properties - в конфиге
+//а Project_Dir как VM Option при запуске
+
 public class Config {
     private static final File PROPS = new File("C:\\Users\\nikita\\Desktop\\GitHub\\basejava\\config\\resumes.properties");
     private static final Config INSTANCE = new Config();
